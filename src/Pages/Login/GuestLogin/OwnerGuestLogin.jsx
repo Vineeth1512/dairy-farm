@@ -1,17 +1,20 @@
 import React from "react";
 import { signInAnonymously } from "firebase/auth";
-import { auth, db } from "../../Config/FirebaseConfiguration";
+import { auth, db } from "../../../Config/FirebaseConfiguration";
 import { toast, ToastContainer } from "react-toastify";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-const GuestLogin = () => {
+const OwnerGuestLogin = () => {
   const navigate = useNavigate();
   const handelGuestLogin = async (e) => {
     e.preventDefault();
     try {
-      const guestOwnerCredential = await signInAnonymously(auth);
-      const owner = guestOwnerCredential.user;
+      let owner = auth.currentUser;
+      if (!owner) {
+        const guestOwnerCredential = await signInAnonymously(auth);
+        owner = guestOwnerCredential.user;
+      }
 
       const guestOwnerData = {
         name: "Guest Owner",
@@ -20,8 +23,12 @@ const GuestLogin = () => {
         createdAt: Date.now(),
       };
 
-      //optionally store data in firestore
-      await setDoc(doc(db, "owners", owner.uid), guestOwnerData);
+      const docRef = doc(db, "owners", owner.uid);
+      const docSnop = await getDoc(docRef);
+
+      if (!docSnop.exists()) {
+        await setDoc(docRef, guestOwnerData);
+      }
       localStorage.setItem("ownerLoggedIn", JSON.stringify(guestOwnerData));
       toast.success("Guest Owner Logged In Successfully...");
       setTimeout(() => {
@@ -40,11 +47,11 @@ const GuestLogin = () => {
         className="btn btn-success w-full my-2"
         onClick={handelGuestLogin}
       >
-        Guest Login
+        Guest Login as Owner
       </button>
       <ToastContainer />
     </>
   );
 };
 
-export default GuestLogin;
+export default OwnerGuestLogin;

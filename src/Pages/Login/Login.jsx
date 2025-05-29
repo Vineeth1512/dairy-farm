@@ -9,6 +9,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import GuestLogin from "./GuestLogin";
+import OwnerGuestLogin from "./GuestLogin/OwnerGuestLogin";
+import UserGuestLogin from "./GuestLogin/UserGuestLogin";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ const Login = () => {
         loggedInUserData = usersData.data();
         localStorage.setItem("userLoggedIn", JSON.stringify(loggedInUser));
       }
-      navigate(`/${loggedInUserData.role}Dashboard`);
+      setTimeout(() => navigate(`/${loggedInUserData.role}Dashboard`), 1500);
 
       console.log(loggedInUserData);
     } catch (err) {
@@ -120,7 +122,9 @@ const Login = () => {
           >
             Login
           </button>
-          <GuestLogin />
+
+          <OwnerGuestLogin />
+          <UserGuestLogin />
         </form>
 
         <p className="mt-4 text-sm text-center text-gray-600">
