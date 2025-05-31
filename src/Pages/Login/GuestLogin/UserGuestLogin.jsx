@@ -1,5 +1,5 @@
 import React from "react";
-import { signInAnonymously } from "firebase/auth";
+import { signInAnonymously, updateProfile } from "firebase/auth";
 import { auth, db } from "../../../Config/FirebaseConfiguration";
 import { toast, ToastContainer } from "react-toastify";
 import { setDoc, doc, getDoc } from "firebase/firestore";
@@ -13,10 +13,12 @@ const UserGuestLogin = () => {
     try {
       let user = auth.currentUser;
 
-      if (!user) {
-        const guestOwnerCredential = await signInAnonymously(auth);
-        user = guestOwnerCredential.user;
-      }
+      const guestOwnerCredential = await signInAnonymously(auth);
+      user = guestOwnerCredential.user;
+
+      await updateProfile(user, {
+        displayName: "Guest-User",
+      });
 
       const guestUserData = {
         name: "Guest User",
@@ -25,7 +27,7 @@ const UserGuestLogin = () => {
         createdAt: Date.now(),
       };
 
-      const docRef = doc(db, "users", user.uid);
+      const docRef = doc(db, "users", user.displayName);
       const docSnop = await getDoc(docRef);
 
       if (!docSnop.exists()) {

@@ -46,7 +46,7 @@ const Login = () => {
       );
       console.log(usersData);
 
-      let loggedInUserData; 
+      let loggedInUserData;
       if (ownersData.exists()) {
         loggedInUserData = ownersData.data();
         localStorage.setItem("ownerLoggedIn", JSON.stringify(loggedInUser));

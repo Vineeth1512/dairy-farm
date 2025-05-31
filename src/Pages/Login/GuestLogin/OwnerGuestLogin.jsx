@@ -1,5 +1,5 @@
 import React from "react";
-import { signInAnonymously } from "firebase/auth";
+import { signInAnonymously, updateProfile } from "firebase/auth";
 import { auth, db } from "../../../Config/FirebaseConfiguration";
 import { toast, ToastContainer } from "react-toastify";
 import { setDoc, doc, getDoc } from "firebase/firestore";
@@ -11,27 +11,35 @@ const OwnerGuestLogin = () => {
     e.preventDefault();
     try {
       let owner = auth.currentUser;
-      if (!owner) {
-        const guestOwnerCredential = await signInAnonymously(auth);
-        owner = guestOwnerCredential.user;
-        console.log(guestOwnerCredential);
-      }
+
+      const guestOwnerCredential = await signInAnonymously(auth);
+      owner = guestOwnerCredential.user;
+      console.log(guestOwnerCredential);
+
       console.log(owner);
+      await updateProfile(owner, {
+        displayName: "Guest-Owner",
+      });
 
       const guestOwnerData = {
         name: "Guest Owner",
         email: "guestowner@gmail.com",
         role: "owner",
         createdAt: Date.now(),
+        // uid:owner.uid
       };
+      console.log(owner.displayName);
 
-      const docRef = doc(db, "owners", owner.uid);
+      const docRef = doc(db, "owners", owner.displayName);
       const docSnop = await getDoc(docRef);
 
       if (!docSnop.exists()) {
         await setDoc(docRef, guestOwnerData);
       }
-      localStorage.setItem("ownerLoggedIn", JSON.stringify(guestOwnerData));
+      localStorage.setItem(
+        "ownerLoggedIn",
+        JSON.stringify(guestOwnerCredential)
+      );
       toast.success("Guest Owner Logged In Successfully...");
       setTimeout(() => {
         navigate("/ownerDashboard");

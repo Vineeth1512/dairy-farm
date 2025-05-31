@@ -85,9 +85,19 @@ const Navbar = () => {
                 <Link to="/products" className="hover:text-green-600">
                   Products
                 </Link>
-                <Link to="/contact" className="hover:text-green-600">
-                  Contact
-                </Link>
+                {(userLoggedIn && (
+                  <Link to={`/userDashboard`} className="hover:text-green-600">
+                    Dashboard
+                  </Link>
+                )) ||
+                  (loggedInOwner && (
+                    <Link
+                      to={`/ownerDashboard`}
+                      className="hover:text-green-600"
+                    >
+                      Dashboard
+                    </Link>
+                  ))}
               </div>
             </div>
 
@@ -224,7 +234,7 @@ const Navbar = () => {
             </li>
             <li>
               <Link to="/contact" className="hover:text-green-600">
-                Contact
+                Dashboard
               </Link>
             </li>
 
