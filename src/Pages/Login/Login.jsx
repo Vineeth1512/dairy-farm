@@ -8,7 +8,6 @@ import { db } from "../../Config/FirebaseConfiguration";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import GuestLogin from "./GuestLogin";
 import OwnerGuestLogin from "./GuestLogin/OwnerGuestLogin";
 import UserGuestLogin from "./GuestLogin/UserGuestLogin";
 
@@ -47,7 +46,7 @@ const Login = () => {
       );
       console.log(usersData);
 
-      let loggedInUserData;
+      let loggedInUserData; 
       if (ownersData.exists()) {
         loggedInUserData = ownersData.data();
         localStorage.setItem("ownerLoggedIn", JSON.stringify(loggedInUser));

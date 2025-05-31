@@ -7,6 +7,8 @@ import Signup from "./Pages/Signup/Signup";
 import OwnerDashboard from "./Components/Dashboard/OwnerDashboard/OwnerDashboard";
 import UserDashboard from "./Components/Dashboard/UserDashboard/UserDashboard";
 import ForgotPassword from "./Pages/Login/ForgotPassword/ForgotPassword";
+import AddAnimal from "./Components/Dashboard/OwnerDashboard/AddAnimal/AddAnimal";
+import AllAnimals from "./Components/Dashboard/OwnerDashboard/AllAnimals/AllAnimals";
 
 const App = () => {
   return (
@@ -17,7 +19,10 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
-        <Route path="/ownerDashboard" element={<OwnerDashboard />} />
+        <Route path="/ownerDashboard" element={<OwnerDashboard />}>
+          <Route path="addAnimal" element={<AddAnimal />} />
+          <Route path="allAnimals" element={<AllAnimals />} />
+        </Route>
         <Route path="/userDashboard" element={<UserDashboard />} />
       </Routes>
     </>

@@ -14,7 +14,9 @@ const OwnerGuestLogin = () => {
       if (!owner) {
         const guestOwnerCredential = await signInAnonymously(auth);
         owner = guestOwnerCredential.user;
+        console.log(guestOwnerCredential);
       }
+      console.log(owner);
 
       const guestOwnerData = {
         name: "Guest Owner",
