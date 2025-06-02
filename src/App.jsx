@@ -9,6 +9,8 @@ import UserDashboard from "./Components/Dashboard/UserDashboard/UserDashboard";
 import ForgotPassword from "./Pages/Login/ForgotPassword/ForgotPassword";
 import AddAnimal from "./Components/Dashboard/OwnerDashboard/AddAnimal/AddAnimal";
 import AllAnimals from "./Components/Dashboard/OwnerDashboard/AllAnimals/AllAnimals";
+import AddMilk from "./Components/Dashboard/OwnerDashboard/AddMilk/AddMilk";
+import AllMilkItems from "./Components/Dashboard/OwnerDashboard/AllMilkItems/AllMilkItems";
 
 const App = () => {
   return (
@@ -22,6 +24,7 @@ const App = () => {
         <Route path="/ownerDashboard" element={<OwnerDashboard />}>
           <Route path="addAnimal" element={<AddAnimal />} />
           <Route path="allAnimals" element={<AllAnimals />} />
+          <Route path="allMilk" element={<AllMilkItems />} />
         </Route>
         <Route path="/userDashboard" element={<UserDashboard />} />
       </Routes>
