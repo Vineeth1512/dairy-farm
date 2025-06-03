@@ -59,26 +59,50 @@ const OwnerSidebar = () => {
           </li>
           <li>
             <Link
-              to="allAnimals"
+              to="addMilkProduct"
               className={`btn w-full text-left justify-start ${
-                isActive("addAnimal")
+                isActive("addMilkProduct")
                   ? "bg-slate-800 text-white"
                   : "bg-slate-100 hover:bg-slate-200"
               }`}
             >
-              🐄 All Animals
+              ➕ Add Milk Product
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="allAnimals"
+              className={`btn w-full text-left justify-start ${
+                isActive("allAnimals")
+                  ? "bg-slate-800 text-white"
+                  : "bg-slate-100 hover:bg-slate-200"
+              }`}
+            >
+              🐄 View All Animals
             </Link>
           </li>
           <li>
             <Link
               to="allMilk"
               className={`btn w-full text-left justify-start ${
-                isActive("addMilk")
+                isActive("allMilk")
                   ? "bg-slate-800 text-white"
                   : "bg-slate-100 hover:bg-slate-200"
               }`}
             >
-              🐄 All Milk Items
+              🐄 View All Milk Items
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="allMilkProducts"
+              className={`btn w-full text-left justify-start ${
+                isActive("allMilkProducts")
+                  ? "bg-slate-800 text-white"
+                  : "bg-slate-100 hover:bg-slate-200"
+              }`}
+            >
+              🐄 View All Milk Products
             </Link>
           </li>
         </ul>

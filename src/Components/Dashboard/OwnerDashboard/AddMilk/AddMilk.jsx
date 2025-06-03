@@ -122,7 +122,8 @@ const AddMilk = () => {
 
   const [imagePreview, setImagePreview] = useState(null);
   const [milkDetails, setMilkDetails] = useState({
-    type: "",
+    name: "",
+    //  type: "",
     quantity: "",
     fat: "",
     shift: "",
@@ -178,12 +179,13 @@ const AddMilk = () => {
       const animalDataWithURL = {
         ...milkDetails,
         image: imageURL,
+        addedMilkDate: Date.now(),
+        expiryDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
       };
       const animatDocRef = doc(db, "owners", loggedInOwner.user.displayName);
 
       await updateDoc(animatDocRef, {
         milk: arrayUnion(animalDataWithURL),
-        addedMilkDate: Date.now(),
       });
 
       toast.success("Milk Item  added Successfully..");
@@ -213,6 +215,19 @@ const AddMilk = () => {
       <form onSubmit={handleMilkFormSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="form-control">
+            <label className="label font-semibold">Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Cow Milk or Buffalo Milk"
+              className="input input-bordered border-green-400 w-full bg-white"
+              required
+              onChange={(e) =>
+                setMilkDetails({ ...milkDetails, name: e.target.value })
+              }
+            />
+          </div>
+          {/* <div className="form-control">
             <label className="label font-semibold">
               Type
               <span className="text-sm text-gray-400"></span>
@@ -228,7 +243,7 @@ const AddMilk = () => {
               <option value="cow">Cow</option>
               <option value="buffalo">Buffalo</option>
             </select>
-          </div>
+          </div> */}
 
           <div className="form-control">
             <label className="label font-semibold">Quantity</label>

@@ -11,6 +11,8 @@ import AddAnimal from "./Components/Dashboard/OwnerDashboard/AddAnimal/AddAnimal
 import AllAnimals from "./Components/Dashboard/OwnerDashboard/AllAnimals/AllAnimals";
 import AddMilk from "./Components/Dashboard/OwnerDashboard/AddMilk/AddMilk";
 import AllMilkItems from "./Components/Dashboard/OwnerDashboard/AllMilkItems/AllMilkItems";
+import AllMilkProducts from "./Components/Dashboard/OwnerDashboard/AllMilkProducts/AllMilkProducts";
+import AddMilkProducts from "./Components/Dashboard/OwnerDashboard/AddMilkProducts/AddMilkProducts";
 
 const App = () => {
   return (
@@ -24,7 +26,10 @@ const App = () => {
         <Route path="/ownerDashboard" element={<OwnerDashboard />}>
           <Route path="addAnimal" element={<AddAnimal />} />
           <Route path="allAnimals" element={<AllAnimals />} />
+          <Route path="addMilk" element={<AddMilk />} />
+          <Route path="addMilkProduct" element={<AddMilkProducts />} />
           <Route path="allMilk" element={<AllMilkItems />} />
+          <Route path="allMilkProducts" element={<AllMilkProducts />} />
         </Route>
         <Route path="/userDashboard" element={<UserDashboard />} />
       </Routes>

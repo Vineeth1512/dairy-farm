@@ -3,38 +3,38 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../Config/FirebaseConfiguration";
 import { toast, ToastContainer } from "react-toastify";
 
-const AllMilkItems = () => {
-  const [allMilkItems, setAllMilkItems] = useState([]);
+const AllMilkProducts = () => {
+  const [milkProducts, setMilkProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const loggedInOwner = JSON.parse(localStorage.getItem("ownerLoggedIn"));
 
   useEffect(() => {
-    const fetchAllMilkItems = async () => {
+    const fetchMilkProductsData = async () => {
       const docRef = doc(db, "owners", loggedInOwner.user.displayName);
-      const allMilkItemsData = await getDoc(docRef);
+      const allMilkProductsData = await getDoc(docRef);
 
-      if (allMilkItemsData.exists()) {
-        setAllMilkItems(allMilkItemsData.data().milk || []);
+      if (allMilkProductsData.exists()) {
+        setMilkProducts(allMilkProductsData.data().products || []);
       }
       setLoading(false);
     };
-    fetchAllMilkItems();
+    fetchMilkProductsData();
   }, []);
 
-  const handleDeleteItem = async (milkIndex) => {
-    console.log(milkIndex);
+  const handleDeleteProduct = async (productIndex) => {
+    console.log(productIndex);
 
-    let milkItemsAfterDeleted = allMilkItems.filter(
-      (filAnimal, index) => index !== milkIndex
+    let milmProductsAfterDeleted = milkProducts.filter(
+      (filProduct, index) => index !== productIndex
     );
-    console.log(milkItemsAfterDeleted);
+    console.log(milmProductsAfterDeleted);
     const docRef = doc(db, "owners", loggedInOwner.user.displayName);
     await updateDoc(docRef, {
-      milk: milkItemsAfterDeleted,
+      milk: milmProductsAfterDeleted,
     });
     toast.success("Milk Item Deleted Successfully..");
-    setAllMilkItems(milkItemsAfterDeleted);
+    setMilkProducts(milmProductsAfterDeleted);
   };
   if (loading) {
     return (
@@ -44,10 +44,10 @@ const AllMilkItems = () => {
     );
   }
 
-  if (allMilkItems.length === 0) {
+  if (milkProducts.length === 0) {
     return (
       <div className="text-center mt-20 text-gray-500 text-lg font-semibold">
-        No Milk Items found. Please add some!
+        No Milk Products found. Please add some!
       </div>
     );
   }
@@ -55,36 +55,42 @@ const AllMilkItems = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-extrabold text-green-700 mb-8 text-center">
-        Your Milk Items
+        Your Milk Products
       </h1>
 
       <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {allMilkItems.map((milk, index) => (
+        {milkProducts.map((product, index) => (
           <div
             key={index}
             className="card bg-white shadow-lg rounded-xl overflow-hidden border border-green-300 hover:shadow-2xl transition-shadow duration-300"
           >
             <figure className="h-48 overflow-hidden">
               <img
-                src={milk.image}
-                alt={milk.name}
+                src={product.image}
+                alt={product.name}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
             </figure>
             <div className="p-6">
               <h2 className="card-title text-xl font-bold text-green-800 mb-2">
-                {milk.name}
+                Name: {product.name}
               </h2>
 
               <p className="text-gray-700 mb-1">
-                <span className="font-semibold">Quantity:</span> {milk.quantity}
+                <span className="font-semibold">Quantity:</span>{" "}
+                {product.quantity}
+              </p>
+              <p className="text-gray-700 mb-1">
+                <span className="font-semibold">Category:</span>{" "}
+                {product.category}
               </p>
               <p className="text-gray-700 mb-4">
-                <span className="font-semibold">Price:</span> ₹{milk.price}
+                <span className="font-semibold">Price:</span> ₹{product.price}
               </p>
               <p className="text-gray-700 mb-4">
                 <span className="font-semibold">ExpiryDate : </span>
-                {milk.expiryDate && milk.expiryDate.toDate().toLocaleString()}
+                {product.expiryDate &&
+                  product.expiryDate.toDate().toLocaleString()}
               </p>
               <div className="flex justify-between">
                 <button className="btn btn-sm btn-info text-white hover:btn-primary transition">
@@ -92,7 +98,7 @@ const AllMilkItems = () => {
                 </button>
                 <button
                   className="btn btn-sm btn-error text-white hover:btn-secondary transition"
-                  onClick={() => handleDeleteItem(index)}
+                  onClick={() => handleDeleteProduct(index)}
                 >
                   Delete
                 </button>
@@ -106,4 +112,4 @@ const AllMilkItems = () => {
   );
 };
 
-export default AllMilkItems;
+export default AllMilkProducts;
