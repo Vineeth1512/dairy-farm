@@ -74,13 +74,13 @@ const Signup = () => {
       }}
     >
       <div className="bg-white bg-opacity-90 p-10 rounded-2xl shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-bold text-center text-green-800 mb-6">
+        <h2 className="text-3xl font-bold text-center text-[#6e4327] mb-6">
           🐄Sign Up
         </h2>
         <form onSubmit={handleFormSubmit}>
-          <div className="form-control mb-4">
+          <div className="form-control mb-4 text-[#6e4327]">
             <label className="label">
-              <span className="label-text text-green-700 font-semibold">
+              <span className="label-text text-[#6e4327] font-semibold">
                 Full Name
               </span>
             </label>
@@ -97,7 +97,7 @@ const Signup = () => {
 
           <div className="form-control mb-4">
             <label className="label">
-              <span className="label-text text-green-700 font-semibold">
+              <span className="label-text text-[#6e4327] font-semibold">
                 Email
               </span>
             </label>
@@ -114,7 +114,7 @@ const Signup = () => {
 
           <div className="form-control mb-6">
             <label className="label">
-              <span className="label-text text-green-700 font-semibold">
+              <span className="label-text text-[#6e4327] font-semibold">
                 Password
               </span>
             </label>
@@ -130,7 +130,7 @@ const Signup = () => {
           </div>
           <div className="form-control mb-6">
             <label className="label">
-              <span className="label-text text-green-700 font-semibold">
+              <span className="label-text text-[#6e4327] font-semibold">
                 Confirm Password
               </span>
             </label>
@@ -147,7 +147,7 @@ const Signup = () => {
 
           <div className="form-control mb-6">
             <label className="label">
-              <span className="label-text text-green-700 font-semibold">
+              <span className="label-text text-[#6e4327] font-semibold">
                 Role
               </span>
             </label>
@@ -165,7 +165,7 @@ const Signup = () => {
 
           <button
             type="submit"
-            className="btn btn-success w-full"
+            className="btn  w-full bg-[#6e4327]"
             disabled={loading}
           >
             {loading ? "Registering" : "Register"}
@@ -176,7 +176,7 @@ const Signup = () => {
           Already have an account?{" "}
           <a
             href="/login"
-            className="text-green-700 font-semibold hover:underline"
+            className="text-[#6e4327] font-semibold hover:underline"
           >
             Login here
           </a>

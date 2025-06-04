@@ -38,11 +38,11 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="drawer z-50 sticky top-0">
+      <div className="drawer z-50 sticky top-0 ">
         <input id="nav-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Navbar */}
-          <nav className="navbar bg-white shadow-md px-6 flex justify-between items-center gap-8">
+          <nav className="navbar  shadow-md px-6 flex justify-between items-center gap-8 text-[#fff] bg-[#6e4327]">
             {/* Left: Logo + Nav Links */}
             <div className="flex items-center gap-6">
               {/* Hamburger (Mobile only) */}
@@ -66,14 +66,14 @@ const Navbar = () => {
               {/* Logo */}
               <Link to="/" className="flex items-center gap-2">
                 <img src={logo} alt="Dairy Logo" className="h-10" />
-                <span className="text-xl font-bold text-green-700">
+                <span className="text-xl font-bold text-[#fff]">
                   Dairy Farm
                 </span>
               </Link>
 
               {/* Navigation Links (Desktop only) */}
-              <div className="hidden md:flex gap-10 text-gray-700 font-medium ml-4">
-                <Link to="/" className="hover:text-green-600">
+              <div className="hidden md:flex gap-10 text-[#fff] font-medium ml-4">
+                <Link to="/" className="hover:text-green-600 ">
                   Home
                 </Link>
                 <Link to="/cattle" className="hover:text-green-600">
@@ -119,7 +119,7 @@ const Navbar = () => {
                     "User"}
                   !
                 </span>
-                <div className="hidden md:block dropdown dropdown-end">
+                <div className="hidden md:block  dropdown dropdown-end ">
                   <div
                     tabIndex={0}
                     role="button"
@@ -132,7 +132,7 @@ const Navbar = () => {
                       />
                     </div>
                   </div>
-                  <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                  <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52 bg-[#9c8f86]">
                     <li>
                       <a>Profile</a>
                     </li>

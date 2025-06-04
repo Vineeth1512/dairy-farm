@@ -54,7 +54,7 @@ const OwnerGuestLogin = () => {
     <>
       <button
         type="submit"
-        className="btn btn-success w-full my-2"
+        className="btn bg-[#6e4327] text-[#fff] w-full my-2"
         onClick={handelGuestLogin}
       >
         Guest Login as Owner

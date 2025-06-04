@@ -70,13 +70,13 @@ const Login = () => {
       }}
     >
       <div className="bg-white bg-opacity-90 p-10 rounded-2xl shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-bold text-center text-green-800 mb-6">
+        <h2 className="text-3xl font-bold text-center text-[#6e4327] mb-6">
           🐄 Dairy Farm Login
         </h2>
         <form>
           <div className="form-control mb-4">
             <label className="label">
-              <span className="label-text text-green-700 font-semibold">
+              <span className="label-text text-[#6e4327] font-semibold">
                 Email
               </span>
             </label>
@@ -92,7 +92,7 @@ const Login = () => {
 
           <div className="form-control mb-6">
             <label className="label">
-              <span className="label-text text-green-700 font-semibold">
+              <span className="label-text text-[#6e4327] font-semibold">
                 Password
               </span>
             </label>
@@ -108,7 +108,7 @@ const Login = () => {
           <p className="mt-4 text-sm tex-left text-gray-600">
             <Link
               to={"/forgotPassword"}
-              className="text-green-700 font-semibold hover:underline"
+              className="text-[#6e4327] font-semibold hover:underline"
             >
               Forgot Password
             </Link>
@@ -116,7 +116,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="btn btn-success w-full my-2"
+            className="btn bg-[#6e4327] text-[#fff] w-full my-2"
             onClick={handleLoginFormSubmit}
           >
             Login
@@ -130,7 +130,7 @@ const Login = () => {
           Don't have an account?{" "}
           <a
             href="/signup"
-            className="text-green-700 font-semibold hover:underline"
+            className="text-[#6e4327] font-semibold hover:underline"
           >
             SignUp here
           </a>
