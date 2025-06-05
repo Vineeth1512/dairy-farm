@@ -1,116 +1,3 @@
-// import React, { useState } from "react";
-
-// export const AddMilk = ({ showMilkModal, onClose }) => {
-//   const [milkDetails, setMilkDetails] = useState({
-//     type: "",
-//     quantity: "",
-//     fat: "",
-//     shift: "",
-//   });
-
-//   if (!showMilkModal) return null;
-
-//   return (
-//     <>
-//       <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40 backdrop-blur-sm">
-//         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative">
-//           {/* Close Button */}
-//           <button
-//             className="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl font-bold"
-//             onClick={onClose}
-//           >
-//             &times;
-//           </button>
-
-//           {/* Modal Title */}
-//           <h3 className=" text-center text-2xl font-bold text-gray-800 mb-4">
-//             Add Milk Details
-//           </h3>
-
-//           {/* Form Inputs */}
-//           <form className="space-y-4">
-//             <div className="form-control">
-//               <label className="label font-semibold">
-//                 Type
-//                 <span className="text-sm text-gray-400"></span>
-//               </label>
-//               <select
-//                 name="type"
-//                 className="select select-bordered  border-gray-400 bg-white"
-//               >
-//                 <option value="">Select</option>
-//                 <option value="cow">Cow</option>
-//                 <option value="buffalo">Buffalo</option>
-//               </select>
-//             </div>
-//             <div className="form-control">
-//               <label className="label font-semibold">Quantity</label>
-//               <input
-//                 type="text"
-//                 name="quantity"
-//                 placeholder="500ml or 1L.."
-//                 className="input input-bordered border-green-400 w-full bg-white"
-//                 required
-//               />
-//             </div>
-//             <div className="form-control">
-//               <label className="label font-semibold">Fat (in %)</label>
-//               <input
-//                 type="text"
-//                 name="fat"
-//                 placeholder="e.g 4.5% "
-//                 className="input input-bordered border-green-400 w-full bg-white"
-//                 required
-//               />
-//             </div>
-//             <div className="form-control">
-//               <label className="label font-semibold">
-//                 Shift
-//                 <span className="text-sm text-gray-400"></span>
-//               </label>
-//               <select
-//                 name="type"
-//                 className="select select-bordered  border-gray-400 bg-white"
-//               >
-//                 <option value="">Select</option>
-//                 <option value="morning">Morning</option>
-//                 <option value="evening">Evening</option>
-//               </select>
-//             </div>
-
-//             <div className="form-control">
-//               <label className="label font-semibold">Description</label>
-//               <textarea
-//                 type="text"
-//                 name="quantity"
-//                 placeholder="500ml or 1L.."
-//                 className="input input-bordered border-green-400 w-full bg-white"
-//                 required
-//               ></textarea>
-//             </div>
-
-//             {/* Action Buttons */}
-//             <div className="flex justify-end space-x-3 pt-4">
-//               <button
-//                 type="button"
-//                 onClick={onClose}
-//                 className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition"
-//               >
-//                 Cancel
-//               </button>
-//               <button
-//                 type="submit"
-//                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-//               >
-//                 Submit
-//               </button>
-//             </div>
-//           </form>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { updateDoc, doc, arrayUnion } from "firebase/firestore";
@@ -162,7 +49,7 @@ const AddMilk = () => {
       setImagePreview(imageURL); // show preview
       setMilkDetails((prev) => ({
         ...prev,
-        image: file, // store file (you can also store imageURL if needed)
+        image: imageURL, // store file (you can also store imageURL if needed)
       }));
     } catch (err) {
       toast.error(err.message);
@@ -174,18 +61,19 @@ const AddMilk = () => {
     console.log(milkDetails);
 
     try {
-      const imageURL = await uploadImageToCloudinary(milkDetails.image);
+      // const imageURL = await uploadImageToCloudinary(milkDetails.image);
 
-      const animalDataWithURL = {
-        ...milkDetails,
-        image: imageURL,
-        addedMilkDate: Date.now(),
-        expiryDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
-      };
+      // const animalDataWithURL = {
+      //   ...milkDetails,
+      //   image: imageURL,
+      //   addedMilkDate: Date.now(),
+      //   expiryDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+      // };
       const animatDocRef = doc(db, "owners", loggedInOwner.user.displayName);
+      console.log(milkDetails);
 
       await updateDoc(animatDocRef, {
-        milk: arrayUnion(animalDataWithURL),
+        milk: arrayUnion(milkDetails),
       });
 
       toast.success("Milk Item  added Successfully..");

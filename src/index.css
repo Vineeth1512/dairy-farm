@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-range::-webkit-slider-thumb {
+  background-color: #6e4327;
+  border: none;
+}
+
+.custom-range::-webkit-slider-runnable-track {
+  background-color: #f3e6db;
+}
+
+.custom-range::-moz-range-thumb {
+  background-color: #6e4327;
+  border: none;
+}
+
+.custom-range::-moz-range-track {
+  background-color: #f3e6db;
+}
