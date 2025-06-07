@@ -40,6 +40,10 @@ const milkData = [
 ];
 
 export const Milk = () => {
+
+
+
+  
   return (
     <div className="p-6">
       <h2 className="text-3xl font-bold text-center text-[#6e4327] mb-8">

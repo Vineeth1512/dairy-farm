@@ -47,7 +47,7 @@ const services = [
 
 const FeaturesService = () => {
   return (
-    <section className="py-16 bg-[#fff3d3] text-[#3c2a1e]">
+    <section className="py-16 bg-[#FAF7E6] text-[#3c2a1e]">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-14">
           🔑 Our Key Features

@@ -66,6 +66,7 @@ const AddAnimal = () => {
       const animalDataWithURL = {
         ...animalFormData,
         image: imageURL,
+        id:Date.now()
       };
       const animatDocRef = doc(db, "owners", loggedInOwner.user.displayName);
 

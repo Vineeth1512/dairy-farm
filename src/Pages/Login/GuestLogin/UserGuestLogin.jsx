@@ -34,7 +34,10 @@ const UserGuestLogin = () => {
         await setDoc(docRef, guestUserData);
       }
 
-      localStorage.setItem("userLoggedIn", JSON.stringify(guestUserData));
+      localStorage.setItem(
+        "userLoggedIn",
+        JSON.stringify(guestOwnerCredential)
+      );
       toast.success("Guest User Logged In Successfully...");
       setTimeout(() => {
         navigate("/userDashboard");

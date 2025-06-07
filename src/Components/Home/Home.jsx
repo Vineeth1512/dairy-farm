@@ -2,6 +2,7 @@ import React from "react";
 import AutoCarousel from "../AutoCarousel/AutoCarousel";
 import FeaturesService from "./FeaturesServices/FeaturesServices";
 import FarmAbout from "./FarmAbout/FarmAbout";
+import MeetFarmers from "./MeetFarmers/MeetFarmers";
 
 const Home = () => {
   return (
@@ -9,6 +10,8 @@ const Home = () => {
       <AutoCarousel />
       <FeaturesService />
       {/* <FarmAbout /> */}
+
+      <MeetFarmers />
     </>
   );
 };

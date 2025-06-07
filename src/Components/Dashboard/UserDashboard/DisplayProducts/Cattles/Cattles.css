@@ -1,0 +1,8 @@
+/* styles.css */
+.custom-gradient {
+  background: radial-gradient(circle, #f7a974, #9e673d);
+  transition: background 0.6s ease;
+}
+.custom-gradient:hover {
+  background: #9e673d;
+}

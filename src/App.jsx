@@ -14,17 +14,23 @@ import AllMilkItems from "./Components/Dashboard/OwnerDashboard/AllMilkItems/All
 import AllMilkProducts from "./Components/Dashboard/OwnerDashboard/AllMilkProducts/AllMilkProducts";
 import AddMilkProducts from "./Components/Dashboard/OwnerDashboard/AddMilkProducts/AddMilkProducts";
 import { Cattles } from "./Components/Dashboard/UserDashboard/DisplayProducts/Cattles/Cattles";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "./Config/FirebaseConfiguration";
 import { Milk } from "./Components/Dashboard/UserDashboard/DisplayProducts/Milk/Milk";
 import { MilkItems } from "./Components/Dashboard/UserDashboard/DisplayProducts/MilkItems/MilkItems";
+import SingleCattle from "./Components/Dashboard/UserDashboard/DisplayProducts/Cattles/SingleCattle";
 
 const App = () => {
   const [cattle, setCattle] = useState([]);
   const [milk, setMilk] = useState([]);
   const [milkItems, setMilkItems] = useState([]);
+
+  const [wishListCount, SetWishListCount] = useState(0);
   useEffect(() => {
-    console.log("From useEffect");
+    const loggedInUser = JSON.parse(localStorage.getItem("userLoggedIn"));
+
+    console.log(loggedInUser, "From App jsx");
+
     const fetchAllData = async () => {
       try {
         const dataDoc = collection(db, "owners");
@@ -50,7 +56,12 @@ const App = () => {
           setMilk(milkData);
           setMilkItems(milkProductData);
         });
-
+        const usersData = await getDoc(
+          doc(db, "users", loggedInUser.user.displayName)
+        );
+        console.log(usersData.data(), "Data...........");
+        const wishCount = usersData.data().wishList.length;
+        SetWishListCount(wishCount);
         console.log(milkData);
       } catch (err) {
         console.log(err);
@@ -61,7 +72,7 @@ const App = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar wishListCount={wishListCount} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -76,7 +87,16 @@ const App = () => {
           <Route path="allMilkProducts" element={<AllMilkProducts />} />
         </Route>
         <Route path="/userDashboard" element={<UserDashboard />} />
-        <Route path="/cattle" element={<Cattles cattle={cattle} />} />
+        <Route
+          path="/cattle"
+          element={
+            <Cattles cattle={cattle} SetWishListCount={SetWishListCount} />
+          }
+        />
+        <Route
+          path="/singleCattle/:id"
+          element={<SingleCattle singleCattle={cattle} />}
+        />
         <Route path="/milk" element={<Milk milk={milk} />} />
         <Route path="/products" element={<MilkItems milkItems={milkItems} />} />
       </Routes>

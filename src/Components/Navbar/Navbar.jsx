@@ -5,8 +5,9 @@ import { auth } from "../../Config/FirebaseConfiguration";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import Logout from "../Logout/Logout";
+import { AiOutlineHeart } from "react-icons/ai";
 
-const Navbar = () => {
+const Navbar = ({ wishListCount }) => {
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
@@ -42,7 +43,7 @@ const Navbar = () => {
         <input id="nav-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Navbar */}
-          <nav className="navbar  shadow-md px-6 flex justify-between items-center gap-8 text-[#fff] bg-[#6e4327]">
+          <nav className="navbar  shadow-md px-6 flex justify-between items-center gap-8 text-[#fff]  bg-[radial-gradient(circle,#f7a974,#9e673d)]">
             {/* Left: Logo + Nav Links */}
             <div className="flex items-center gap-6">
               {/* Hamburger (Mobile only) */}
@@ -148,10 +149,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link
-                  to="/login"
-                  className="btn btn-ghost text-green-700 font-semibold"
-                >
+                <Link to="/login" className="btn btn-ghost font-semibold">
                   Login
                 </Link>
               </>
@@ -182,7 +180,25 @@ const Navbar = () => {
                       m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                         />
                       </svg>
-                      <span className="badge badge-sm indicator-item">8</span>
+                      <span className="badge badge-sm indicator-item">0</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {userLoggedIn && (
+              <div className="hidden md:flex items-center gap-4">
+                <div className="dropdown dropdown-end">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle"
+                  >
+                    <div className="indicator">
+                      <AiOutlineHeart className="h-6 w-6 text-white" />
+                      <span className="badge badge-sm indicator-item">
+                        {wishListCount}
+                      </span>
                     </div>
                   </div>
                 </div>
