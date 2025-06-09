@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-const UserGuestLogin = () => {
+const UserGuestLogin = ({ fetchWishListCount }) => {
   const navigate = useNavigate();
   const handelGuestLogin = async (e) => {
     e.preventDefault();
@@ -39,6 +39,7 @@ const UserGuestLogin = () => {
         JSON.stringify(guestOwnerCredential)
       );
       toast.success("Guest User Logged In Successfully...");
+      await fetchWishListCount()
       setTimeout(() => {
         navigate("/userDashboard");
       }, 1500);

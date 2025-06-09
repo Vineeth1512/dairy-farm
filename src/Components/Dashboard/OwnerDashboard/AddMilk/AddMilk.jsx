@@ -10,10 +10,8 @@ const AddMilk = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [milkDetails, setMilkDetails] = useState({
     name: "",
-    //  type: "",
     quantity: "",
     fat: "",
-    shift: "",
     price: "",
     description: "",
     image: null,
@@ -49,7 +47,8 @@ const AddMilk = () => {
       setImagePreview(imageURL); // show preview
       setMilkDetails((prev) => ({
         ...prev,
-        image: imageURL, // store file (you can also store imageURL if needed)
+        image: imageURL,
+        id: Date.now(),
       }));
     } catch (err) {
       toast.error(err.message);
@@ -61,14 +60,6 @@ const AddMilk = () => {
     console.log(milkDetails);
 
     try {
-      // const imageURL = await uploadImageToCloudinary(milkDetails.image);
-
-      // const animalDataWithURL = {
-      //   ...milkDetails,
-      //   image: imageURL,
-      //   addedMilkDate: Date.now(),
-      //   expiryDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
-      // };
       const animatDocRef = doc(db, "owners", loggedInOwner.user.displayName);
       console.log(milkDetails);
 
@@ -77,17 +68,6 @@ const AddMilk = () => {
       });
 
       toast.success("Milk Item  added Successfully..");
-
-      // setMilkDetails({
-      //   breed: "",
-      //   age: "",
-      //   type: "",
-      //   color: "",
-      //   birth: "",
-      //   milkCapacity: "",
-      //   price: "",
-      //   image: null,
-      // });
 
       setTimeout(() => navigate("/ownerDashboard"), 1500);
     } catch (err) {
@@ -115,23 +95,6 @@ const AddMilk = () => {
               }
             />
           </div>
-          {/* <div className="form-control">
-            <label className="label font-semibold">
-              Type
-              <span className="text-sm text-gray-400"></span>
-            </label>
-            <select
-              name="type"
-              className="select select-bordered  border-green-400 bg-white"
-              onChange={(e) =>
-                setMilkDetails({ ...milkDetails, type: e.target.value })
-              }
-            >
-              <option value="">Select</option>
-              <option value="cow">Cow</option>
-              <option value="buffalo">Buffalo</option>
-            </select>
-          </div> */}
 
           <div className="form-control">
             <label className="label font-semibold">Quantity</label>
@@ -149,7 +112,7 @@ const AddMilk = () => {
           <div className="form-control">
             <label className="label font-semibold">Fat (in %)</label>
             <input
-              type="text"
+              type="number"
               name="fat"
               placeholder="e.g 4.5% "
               className="input input-bordered border-green-400 w-full bg-white"
@@ -159,23 +122,7 @@ const AddMilk = () => {
               }
             />
           </div>
-          <div className="form-control">
-            <label className="label font-semibold">
-              Shift
-              <span className="text-sm text-gray-400"></span>
-            </label>
-            <select
-              name="shift"
-              className="select select-bordered  border-green-400 bg-white"
-              onChange={(e) =>
-                setMilkDetails({ ...milkDetails, shift: e.target.value })
-              }
-            >
-              <option value="">Select</option>
-              <option value="morning">Morning</option>
-              <option value="evening">Evening</option>
-            </select>
-          </div>
+
           <div className="form-control">
             <label className="label font-semibold">Price</label>
             <input

@@ -12,13 +12,17 @@ import AllAnimals from "./Components/Dashboard/OwnerDashboard/AllAnimals/AllAnim
 import AddMilk from "./Components/Dashboard/OwnerDashboard/AddMilk/AddMilk";
 import AllMilkItems from "./Components/Dashboard/OwnerDashboard/AllMilkItems/AllMilkItems";
 import AllMilkProducts from "./Components/Dashboard/OwnerDashboard/AllMilkProducts/AllMilkProducts";
-import AddMilkProducts from "./Components/Dashboard/OwnerDashboard/AddMilkProducts/AddMilkProducts";
+import { AddMilkProducts } from "./Components/Dashboard/OwnerDashboard/AddMilkProducts/AddMilkProducts";
 import { Cattles } from "./Components/Dashboard/UserDashboard/DisplayProducts/Cattles/Cattles";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "./Config/FirebaseConfiguration";
 import { Milk } from "./Components/Dashboard/UserDashboard/DisplayProducts/Milk/Milk";
 import { MilkItems } from "./Components/Dashboard/UserDashboard/DisplayProducts/MilkItems/MilkItems";
 import SingleCattle from "./Components/Dashboard/UserDashboard/DisplayProducts/Cattles/SingleCattle";
+import { toast } from "react-toastify";
+import Cart from "./Components/Dashboard/UserDashboard/Cart/Cart";
+import SingleMilk from "./Components/Dashboard/UserDashboard/DisplayProducts/Milk/SingleMilk";
+import SingleProduct from "./Components/Dashboard/UserDashboard/DisplayProducts/MilkItems/SingleProduct";
 
 const App = () => {
   const [cattle, setCattle] = useState([]);
@@ -26,6 +30,30 @@ const App = () => {
   const [milkItems, setMilkItems] = useState([]);
 
   const [wishListCount, SetWishListCount] = useState(0);
+  const [cartCount, setCartCount] = useState([]);
+
+  const fetchWishListCount = async () => {
+    const loggedInUser = JSON.parse(localStorage.getItem("userLoggedIn"));
+
+    if (!loggedInUser) {
+      SetWishListCount(0);
+      setCartCount(0);
+      return;
+    }
+    try {
+      const userRef = doc(db, "users", loggedInUser.user.displayName);
+      const userSnap = await getDoc(userRef);
+      const data = userSnap.data();
+      SetWishListCount(data?.wishList?.length || 0);
+      setCartCount(data?.cart || []);
+    } catch (err) {
+      toast.error(err.message);
+      console.log(err);
+
+      SetWishListCount(0);
+      setCartCount(0);
+    }
+  };
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem("userLoggedIn"));
 
@@ -56,13 +84,9 @@ const App = () => {
           setMilk(milkData);
           setMilkItems(milkProductData);
         });
-        const usersData = await getDoc(
-          doc(db, "users", loggedInUser.user.displayName)
-        );
-        console.log(usersData.data(), "Data...........");
-        const wishCount = usersData.data().wishList.length;
-        SetWishListCount(wishCount);
+
         console.log(milkData);
+        fetchWishListCount();
       } catch (err) {
         console.log(err);
       }
@@ -72,10 +96,18 @@ const App = () => {
 
   return (
     <>
-      <Navbar wishListCount={wishListCount} />
+      <Navbar
+        wishListCount={wishListCount}
+        SetWishListCount={SetWishListCount}
+        cartCount={cartCount}
+        setCartCount={setCartCount}
+      />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login fetchWishListCount={fetchWishListCount} />}
+        />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/ownerDashboard" element={<OwnerDashboard />}>
@@ -95,10 +127,41 @@ const App = () => {
         />
         <Route
           path="/singleCattle/:id"
-          element={<SingleCattle singleCattle={cattle} />}
+          element={
+            <SingleCattle singleCattle={cattle} setCartCount={setCartCount} />
+          }
         />
-        <Route path="/milk" element={<Milk milk={milk} />} />
-        <Route path="/products" element={<MilkItems milkItems={milkItems} />} />
+        <Route
+          path="/singleMilk/:id"
+          element={<SingleMilk singleMilk={milk} setCartCount={setCartCount} />}
+        />
+        <Route
+          path="/singleProduct/:id"
+          element={
+            <SingleProduct
+              singleProduct={milkItems}
+              setCartCount={setCartCount}
+            />
+          }
+        />
+
+        <Route
+          path="/cart"
+          element={<Cart cartItems={cartCount} setCartItems={setCartCount} />}
+        />
+        <Route
+          path="/milk"
+          element={<Milk milk={milk} SetWishListCount={SetWishListCount} />}
+        />
+        <Route
+          path="/products"
+          element={
+            <MilkItems
+              milkItems={milkItems}
+              SetWishListCount={SetWishListCount}
+            />
+          }
+        />
       </Routes>
     </>
   );

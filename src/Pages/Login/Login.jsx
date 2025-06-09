@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import OwnerGuestLogin from "./GuestLogin/OwnerGuestLogin";
 import UserGuestLogin from "./GuestLogin/UserGuestLogin";
 
-const Login = () => {
+const Login = ({ fetchWishListCount }) => {
   const navigate = useNavigate();
   const [loginDetails, setLoginDetails] = useState({
     email: "",
@@ -54,6 +54,7 @@ const Login = () => {
         loggedInUserData = usersData.data();
         localStorage.setItem("userLoggedIn", JSON.stringify(loggedInUser));
       }
+      await fetchWishListCount();
       setTimeout(() => navigate(`/${loggedInUserData.role}Dashboard`), 1500);
 
       console.log(loggedInUserData);
@@ -123,7 +124,7 @@ const Login = () => {
           </button>
 
           <OwnerGuestLogin />
-          <UserGuestLogin />
+          <UserGuestLogin fetchWishListCount={fetchWishListCount} />
         </form>
 
         <p className="mt-4 text-sm text-center text-gray-600">

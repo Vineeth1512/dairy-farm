@@ -76,16 +76,11 @@ const AllMilkItems = () => {
                 {milk.name}
               </h2>
 
-              <p className="text-gray-700 mb-1">
-                <span className="font-semibold">Quantity:</span> {milk.quantity}
+              <p className="text-gray-700 mb-1 flex justify-between p-2">
+                <span className="font-semibold">Quantity: {milk.quantity}</span>
+                <span className="font-semibold">Price: ₹{milk.price}</span>
               </p>
-              <p className="text-gray-700 mb-4">
-                <span className="font-semibold">Price:</span> ₹{milk.price}
-              </p>
-              <p className="text-gray-700 mb-4">
-                <span className="font-semibold">ExpiryDate : </span>
-                {milk.expiryDate && milk.expiryDate.toDate().toLocaleString()}
-              </p>
+
               <div className="flex justify-between">
                 <button className="btn btn-sm btn-info text-white hover:btn-primary transition">
                   Edit

@@ -5,9 +5,9 @@ import { toast, ToastContainer } from "react-toastify";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../../Config/FirebaseConfiguration";
 
-const SingleCattle = ({ singleCattle, setCartCount }) => {
+const SingleMilk = ({ singleMilk, setCartCount }) => {
   const { id } = useParams();
-  const cattle = singleCattle.find((c) => c.id === Number(id));
+  const cattle = singleMilk.find((c) => c.id === Number(id));
   const loggedInUser = JSON.parse(localStorage.getItem("userLoggedIn"));
 
   const handleAddToCart = async (item) => {
@@ -54,7 +54,7 @@ const SingleCattle = ({ singleCattle, setCartCount }) => {
         <div className="bg-[#fefefe] lg:w-1/2 flex items-center justify-center p-6">
           <img
             src={cattle.image}
-            alt={cattle.breed}
+            alt={cattle.name}
             className="object-contain max-h-[400px] w-full rounded-full"
             loading="lazy"
           />
@@ -63,32 +63,27 @@ const SingleCattle = ({ singleCattle, setCartCount }) => {
         {/* Right Side: Details like Nutritional Info */}
         <div className="bg-white lg:w-1/2 p-10 flex flex-col justify-center space-y-6 text-[#6e4327]">
           <div>
-            <h2 className="text-3xl font-bold text-[#6e4327]">
-              {cattle.breed}
-            </h2>
-            <p className="text-base text-gray-500 mt-1">({cattle.type})</p>
+            <h2 className="text-3xl font-bold text-[#6e4327]">{cattle.name}</h2>
           </div>
 
           <div className="space-y-3">
             <div className="flex justify-between text-[#6e4327] text-base border-b pb-1">
-              <span className="font-medium">Age</span>
-              <span>{cattle.age}</span>
+              <span className="font-medium">Fat</span>
+              <span>{cattle.fat}%</span>
             </div>
+
             <div className="flex justify-between text-[#6e4327] text-base border-b pb-1">
-              <span className="font-medium">Birth</span>
-              <span>{cattle.birth}</span>
-            </div>
-            <div className="flex justify-between text-[#6e4327] text-base border-b pb-1">
-              <span className="font-medium">Color</span>
-              <span className="capitalize">{cattle.color}</span>
-            </div>
-            <div className="flex justify-between text-[#6e4327] text-base border-b pb-1">
-              <span className="font-medium">Milk Capacity</span>
-              <span>{cattle.milkCapacity} L/day</span>
+              <span className="font-medium">Quantity</span>
+              <span className="capitalize">{cattle.quantity}</span>
             </div>
             <div className="flex justify-between text-yellow-600 text-lg font-semibold pt-3">
               <span>Price</span>
               <span>₹{cattle.price}</span>
+            </div>
+
+            <div className=" text-[#6e4327] text-lg font-semibold pt-3">
+              <span>Description :</span>
+              <p>{cattle.description}</p>
             </div>
           </div>
 
@@ -114,4 +109,4 @@ const SingleCattle = ({ singleCattle, setCartCount }) => {
   );
 };
 
-export default SingleCattle;
+export default SingleMilk;

@@ -4,14 +4,14 @@ import { updateDoc, doc, arrayUnion } from "firebase/firestore";
 import { db } from "../../../../Config/FirebaseConfiguration";
 import { useNavigate } from "react-router-dom";
 
-const AddMilkProducts = () => {
+export const AddMilkProducts = () => {
   const navigate = useNavigate();
 
   const [imagePreview, setImagePreview] = useState(null);
   const [milkProductDetails, setMilkProductDetails] = useState({
     name: "",
     quantity: "",
-    categoty: "",
+    category: "",
     price: "",
     description: "",
     image: null,
@@ -47,7 +47,8 @@ const AddMilkProducts = () => {
       setImagePreview(imageURL); // show preview
       setMilkProductDetails((prev) => ({
         ...prev,
-        image: file, // store file (you can also store imageURL if needed)
+        image: imageURL,
+        id: Date.now(),
       }));
     } catch (err) {
       toast.error(err.message);
@@ -59,18 +60,10 @@ const AddMilkProducts = () => {
     console.log(milkProductDetails);
 
     try {
-      const imageURL = await uploadImageToCloudinary(milkProductDetails.image);
-
-      const milkProductDateWithURL = {
-        ...milkProductDetails,
-        image: imageURL,
-        addedMilkProductDate: Date.now(),
-        expiryDate: new Date(Date.now() + 30* 24 * 60 * 60 * 1000),
-      };
       const animatDocRef = doc(db, "owners", loggedInOwner.user.displayName);
 
       await updateDoc(animatDocRef, {
-        products: arrayUnion(milkProductDateWithURL),
+        products: arrayUnion(milkProductDetails),
       });
 
       toast.success("Milk Product  added Successfully..");
@@ -132,7 +125,7 @@ const AddMilkProducts = () => {
               onChange={(e) =>
                 setMilkProductDetails({
                   ...milkProductDetails,
-                  shift: e.target.value,
+                  category: e.target.value,
                 })
               }
             >
@@ -205,7 +198,7 @@ const AddMilkProducts = () => {
             type="submit"
             className="btn btn-success w-full text-lg tracking-wide"
           >
-            ➕ Add Milk
+            ➕ Add Milk Product
           </button>
         </div>
       </form>
@@ -214,6 +207,6 @@ const AddMilkProducts = () => {
   );
 };
 
-export default AddMilkProducts;
+//export default AddMilkProducts;
 
 // export default AddMilk;

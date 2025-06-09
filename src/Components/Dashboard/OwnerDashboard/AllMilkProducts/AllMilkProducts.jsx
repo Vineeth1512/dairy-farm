@@ -31,7 +31,7 @@ const AllMilkProducts = () => {
     console.log(milmProductsAfterDeleted);
     const docRef = doc(db, "owners", loggedInOwner.user.displayName);
     await updateDoc(docRef, {
-      milk: milmProductsAfterDeleted,
+      products: milmProductsAfterDeleted,
     });
     toast.success("Milk Item Deleted Successfully..");
     setMilkProducts(milmProductsAfterDeleted);
@@ -87,11 +87,7 @@ const AllMilkProducts = () => {
               <p className="text-gray-700 mb-4">
                 <span className="font-semibold">Price:</span> ₹{product.price}
               </p>
-              <p className="text-gray-700 mb-4">
-                <span className="font-semibold">ExpiryDate : </span>
-                {product.expiryDate &&
-                  product.expiryDate.toDate().toLocaleString()}
-              </p>
+
               <div className="flex justify-between">
                 <button className="btn btn-sm btn-info text-white hover:btn-primary transition">
                   Edit
