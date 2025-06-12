@@ -4,8 +4,11 @@ import { auth, db } from "../../../Config/FirebaseConfiguration";
 import { toast, ToastContainer } from "react-toastify";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { useProfile } from "../../../Components/hooks/useProfile";
 
 const UserGuestLogin = ({ fetchWishListCount }) => {
+    const { fetchLoginData } = useProfile();
+  
   const navigate = useNavigate();
   const handelGuestLogin = async (e) => {
     e.preventDefault();
@@ -24,6 +27,7 @@ const UserGuestLogin = ({ fetchWishListCount }) => {
         name: "Guest User",
         email: "guestuser@gmail.com",
         role: "user",
+        profile: "",
         createdAt: Date.now(),
       };
 
@@ -39,7 +43,8 @@ const UserGuestLogin = ({ fetchWishListCount }) => {
         JSON.stringify(guestOwnerCredential)
       );
       toast.success("Guest User Logged In Successfully...");
-      await fetchWishListCount()
+      await fetchWishListCount();
+      await fetchLoginData()
       setTimeout(() => {
         navigate("/userDashboard");
       }, 1500);

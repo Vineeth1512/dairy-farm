@@ -49,6 +49,7 @@ const AddMilk = () => {
         ...prev,
         image: imageURL,
         id: Date.now(),
+        quantity: 1,
       }));
     } catch (err) {
       toast.error(err.message);

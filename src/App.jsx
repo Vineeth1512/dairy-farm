@@ -23,20 +23,21 @@ import { toast } from "react-toastify";
 import Cart from "./Components/Dashboard/UserDashboard/Cart/Cart";
 import SingleMilk from "./Components/Dashboard/UserDashboard/DisplayProducts/Milk/SingleMilk";
 import SingleProduct from "./Components/Dashboard/UserDashboard/DisplayProducts/MilkItems/SingleProduct";
+import Orders from "./Components/Dashboard/UserDashboard/Orders/Orders";
 
 const App = () => {
   const [cattle, setCattle] = useState([]);
   const [milk, setMilk] = useState([]);
   const [milkItems, setMilkItems] = useState([]);
 
-  const [wishListCount, SetWishListCount] = useState(0);
+  const [wishListCount, setwishListCount] = useState(0);
   const [cartCount, setCartCount] = useState([]);
 
   const fetchWishListCount = async () => {
     const loggedInUser = JSON.parse(localStorage.getItem("userLoggedIn"));
 
     if (!loggedInUser) {
-      SetWishListCount(0);
+      setwishListCount(0);
       setCartCount(0);
       return;
     }
@@ -44,13 +45,13 @@ const App = () => {
       const userRef = doc(db, "users", loggedInUser.user.displayName);
       const userSnap = await getDoc(userRef);
       const data = userSnap.data();
-      SetWishListCount(data?.wishList?.length || 0);
+      setwishListCount(data?.wishList?.length || 0);
       setCartCount(data?.cart || []);
     } catch (err) {
       toast.error(err.message);
       console.log(err);
 
-      SetWishListCount(0);
+      setwishListCount(0);
       setCartCount(0);
     }
   };
@@ -98,7 +99,7 @@ const App = () => {
     <>
       <Navbar
         wishListCount={wishListCount}
-        SetWishListCount={SetWishListCount}
+        setwishListCount={setwishListCount}
         cartCount={cartCount}
         setCartCount={setCartCount}
       />
@@ -122,7 +123,7 @@ const App = () => {
         <Route
           path="/cattle"
           element={
-            <Cattles cattle={cattle} SetWishListCount={SetWishListCount} />
+            <Cattles cattle={cattle} setwishListCount={setwishListCount} />
           }
         />
         <Route
@@ -151,17 +152,18 @@ const App = () => {
         />
         <Route
           path="/milk"
-          element={<Milk milk={milk} SetWishListCount={SetWishListCount} />}
+          element={<Milk milk={milk} setwishListCount={setwishListCount} />}
         />
         <Route
           path="/products"
           element={
             <MilkItems
               milkItems={milkItems}
-              SetWishListCount={SetWishListCount}
+              setwishListCount={setwishListCount}
             />
           }
         />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
     </>
   );

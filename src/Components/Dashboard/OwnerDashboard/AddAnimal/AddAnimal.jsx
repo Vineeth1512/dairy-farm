@@ -49,7 +49,9 @@ const AddAnimal = () => {
       setImagePreview(imageURL); // show preview
       setAnimalFormData((prev) => ({
         ...prev,
-        image: file, // store file (you can also store imageURL if needed)
+        id: Date.now(),
+        quantity: 1,
+        image: imageURL, // store file (you can also store imageURL if needed)
       }));
     } catch (err) {
       toast.error(err.message);
@@ -61,32 +63,20 @@ const AddAnimal = () => {
     console.log(animalFormData);
 
     try {
-      const imageURL = await uploadImageToCloudinary(animalFormData.image);
+      // const imageURL = await uploadImageToCloudinary(animalFormData.image);
 
-      const animalDataWithURL = {
-        ...animalFormData,
-        image: imageURL,
-        id:Date.now()
-      };
+      // const animalDataWithURL = {
+      //   ...animalFormData,
+      //   image: imageURL,
+      //   id:Date.now()
+      // };
       const animatDocRef = doc(db, "owners", loggedInOwner.user.displayName);
 
       await updateDoc(animatDocRef, {
-        animals: arrayUnion(animalDataWithURL),
-        addedAnimalDate: Date.now(),
+        animals: arrayUnion(animalFormData),
       });
 
       toast.success("Animal Data added Successfully..");
-
-      // setAnimalFormData({
-      //   breed: "",
-      //   age: "",
-      //   type: "",
-      //   color: "",
-      //   birth: "",
-      //   milkCapacity: "",
-      //   price: "",
-      //   image: null,
-      // });
 
       setTimeout(() => navigate("/ownerDashboard"), 1500);
     } catch (err) {

@@ -50,6 +50,8 @@ const Signup = () => {
         name: signupDetails.name,
         email: signupDetails.email,
         role: signupDetails.role,
+        profile:
+          "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
         createdAt: Date.now(),
       });
 

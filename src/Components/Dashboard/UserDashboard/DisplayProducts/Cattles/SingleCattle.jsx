@@ -83,6 +83,10 @@ const SingleCattle = ({ singleCattle, setCartCount }) => {
               <span className="capitalize">{cattle.color}</span>
             </div>
             <div className="flex justify-between text-[#6e4327] text-base border-b pb-1">
+              <span className="font-medium">Quantity</span>
+              <span className="capitalize">{cattle.quantity}</span>
+            </div>
+            <div className="flex justify-between text-[#6e4327] text-base border-b pb-1">
               <span className="font-medium">Milk Capacity</span>
               <span>{cattle.milkCapacity} L/day</span>
             </div>

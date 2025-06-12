@@ -1,29 +1,34 @@
 import React, { useState } from "react";
 import logo from "../../assets/images/DairyLogo.png";
+import profilePic from "../../assets/images/profilePic.webp";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../../Config/FirebaseConfiguration";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import Logout from "../Logout/Logout";
 import { AiOutlineHeart } from "react-icons/ai";
+import EditProfile from "../Modals/EditProfile";
+import { useProfile } from "../hooks/useProfile";
+import { auth } from "../../Config/FirebaseConfiguration";
 
 const Navbar = ({
   wishListCount,
-  SetWishListCount,
+  setwishListCount,
   cartCount,
   setCartCount,
 }) => {
+  const { loginData, fetchLoginData } = useProfile();
   const navigate = useNavigate();
 
+  console.log(loginData);
+
   const [showModal, setShowModal] = useState(false);
+  const [editProfileModal, setEditProfileModal] = useState(false);
   const loggedInOwner =
     JSON.parse(localStorage.getItem("ownerLoggedIn")) ||
     JSON.parse(localStorage.getItem("userLoggedIn"));
   console.log(loggedInOwner);
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
-
-  //const loggedInUser = JSON.parse(localStorage.getItem("userLoggedIn"));
-  //console.log(loggedInUser);
+  console.log(userLoggedIn);
 
   const handleLogout = async (e) => {
     console.log("clicked logout");
@@ -36,8 +41,9 @@ const Navbar = ({
       localStorage.removeItem("userLoggedIn");
       // toast.success("SignedOut Successfully");
       setShowModal(false);
-      SetWishListCount(0);
+      setwishListCount(0);
       setCartCount(0);
+      fetchLoginData(null);
       navigate("/login");
     } catch (err) {
       toast.error(err.message);
@@ -93,7 +99,7 @@ const Navbar = ({
                 <Link to="/products" className="hover:text-green-600">
                   Products
                 </Link>
-                {(userLoggedIn && (
+                {(loggedInOwner && (
                   <Link to={`/userDashboard`} className="hover:text-green-600">
                     Dashboard
                   </Link>
@@ -124,6 +130,7 @@ const Navbar = ({
                   Hello,{" "}
                   {loggedInOwner?.name ||
                     loggedInOwner?.user.displayName ||
+                    loginData?.name ||
                     "User"}
                   !
                 </span>
@@ -135,21 +142,22 @@ const Navbar = ({
                   >
                     <div className="w-10 rounded-full">
                       <img
-                        alt="User Avatar"
-                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                        src={loginData?.profile || profilePic}
+                        alt="Profile"
                       />
                     </div>
                   </div>
                   <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52 bg-[#9c8f86]">
                     <li>
-                      <a>Profile</a>
+                      <button onClick={() => setEditProfileModal(true)}>
+                        Profile
+                      </button>
                     </li>
                     <li>
-                      {/* <Logout /> */}
+                      <Link to={"/orders"}>Orders</Link>
+                    </li>
+                    <li>
                       <button onClick={() => setShowModal(true)}>Logout</button>
-                    </li>
-                    <li>
-                      <a>Settings</a>
                     </li>
                   </ul>
                 </div>
@@ -271,29 +279,24 @@ const Navbar = ({
             <div className="flex items-center gap-3 mb-3">
               <div className="avatar">
                 <div className="w-10 rounded-full">
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    alt="Profile"
-                  />
+                  <img src={loginData?.profile || profilePic} alt="Profile" />
                 </div>
               </div>
+              {/* loggedInOwner?.name || */}
               <span className="hidden md:block font-semibold">
-                Hello,{" "}
-                {loggedInOwner?.name ||
-                  loggedInOwner?.user.displayName ||
-                  "User"}
-                !
+                Hello, {loggedInOwner?.user.displayName || "User"}!
               </span>
             </div>
 
             <li>
-              <a>Profile</a>
+              <button onClick={() => setEditProfileModal(true)}>Profile</button>
             </li>
             <li>
               <button onClick={() => setShowModal(true)}>Logout</button>
             </li>
+
             <li>
-              <a>Settings</a>
+              <Link to={"/orders"}>Orders</Link>
             </li>
 
             <div className="divider"></div>
@@ -313,6 +316,12 @@ const Navbar = ({
         showModal={showModal}
         onCancel={() => setShowModal(false)}
         onConfirm={handleLogout}
+      />
+
+      <EditProfile
+        userLoggedIn={loggedInOwner}
+        editProfileModal={editProfileModal}
+        onCancel={() => setEditProfileModal(false)}
       />
     </>
   );

@@ -1,11 +1,6 @@
 import React from "react";
 
 const Logout = ({ showModal, onCancel, onConfirm }) => {
-  // const loggedInOwner =
-  //   JSON.parse(localStorage.getItem("ownerLoggedIn")) ||
-  //   JSON.parse(localStorage.getItem("userLoggedIn"));
-  // console.log(loggedInOwner);
-
   return (
     <>
       {showModal && (

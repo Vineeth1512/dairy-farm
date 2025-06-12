@@ -10,8 +10,11 @@ import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import OwnerGuestLogin from "./GuestLogin/OwnerGuestLogin";
 import UserGuestLogin from "./GuestLogin/UserGuestLogin";
+import { useProfile } from "../../Components/hooks/useProfile";
 
 const Login = ({ fetchWishListCount }) => {
+  const { fetchLoginData } = useProfile();
+
   const navigate = useNavigate();
   const [loginDetails, setLoginDetails] = useState({
     email: "",
@@ -55,6 +58,8 @@ const Login = ({ fetchWishListCount }) => {
         localStorage.setItem("userLoggedIn", JSON.stringify(loggedInUser));
       }
       await fetchWishListCount();
+      await fetchLoginData();
+
       setTimeout(() => navigate(`/${loggedInUserData.role}Dashboard`), 1500);
 
       console.log(loggedInUserData);

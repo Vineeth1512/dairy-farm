@@ -79,6 +79,9 @@ const AllAnimals = () => {
                 <span className="font-semibold">Type:</span> {animal.type}
               </p>
               <p className="text-gray-700 mb-1">
+                <span className="font-semibold">Quantity:</span> {animal.quantity}
+              </p>
+              <p className="text-gray-700 mb-1">
                 <span className="font-semibold">Age:</span> {animal.age}
               </p>
               <p className="text-gray-700 mb-1">

@@ -2,36 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../Config/FirebaseConfiguration";
+import { Link } from "react-router-dom";
+import CheckoutModal from "../../../Modals/CheckoutModal ";
 
 const Cart = ({ cartItems, setCartItems }) => {
-  //   const cartItems = [
-  //     {
-  //       id: 1,
-  //       name: "Wild Tulsi Honey",
-  //       price: 399,
-  //       quantity: 2,
-  //       image:
-  //         "https://res.cloudinary.com/dlrvxuntz/image/upload/v1749312470/ktuk1u0o5zrrffgcbrcc.jpg",
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Buzz Pack",
-  //       price: 999,
-  //       quantity: 1,
-  //       image:
-  //         "https://res.cloudinary.com/dlrvxuntz/image/upload/v1749312357/fjfz1wil4c85t1gewfw5.jpg",
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "Karanj Honey",
-  //       price: 399,
-  //       quantity: 1,
-  //       image:
-  //         "https://res.cloudinary.com/dlrvxuntz/image/upload/v1749312655/blwxlyr3qhseuyqqdcpf.jpg",
-  //     },
-  //   ];
-
   const [cartData, setCardData] = useState([]);
+  const [checkoutModal, setCheckoutModal] = useState(false);
   useEffect(() => {
     if (Array.isArray(cartItems)) {
       setCardData(cartItems);
@@ -49,6 +25,31 @@ const Cart = ({ cartItems, setCartItems }) => {
   const gst = (total * 0.05).toFixed(2);
 
   const loggedInUser = JSON.parse(localStorage.getItem("userLoggedIn"));
+
+  const handleIncrement = async (itemId) => {
+    const updatedCart = cartData.map((item) =>
+      item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
+    );
+    setCardData(updatedCart);
+    setCartItems(updatedCart);
+
+    const docRef = doc(db, "users", loggedInUser.user.displayName);
+    await updateDoc(docRef, { cart: updatedCart });
+  };
+
+  const handleDecrement = async (itemId) => {
+    const updatedCart = cartData.map((item) =>
+      item.id === itemId && item.quantity > 1
+        ? { ...item, quantity: item.quantity - 1 }
+        : item
+    );
+    setCardData(updatedCart);
+    setCartItems(updatedCart);
+
+    const docRef = doc(db, "users", loggedInUser.user.displayName);
+    await updateDoc(docRef, { cart: updatedCart });
+  };
+
   const deleteCartItem = async (deleteItem) => {
     console.log(deleteItem);
     const afterDeleteCartItems = cartData.filter(
@@ -64,6 +65,19 @@ const Cart = ({ cartItems, setCartItems }) => {
       setCartItems(afterDeleteCartItems);
     }
   };
+
+  if (cartItems.length == 0) {
+    return (
+      <>
+        <div className="text-center text-gray-500 text-xl font-medium mt-10">
+          🛒 Your cart is empty.{" "}
+          <Link to="/" className="text-yellow-700 underline">
+            Go shopping!
+          </Link>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -105,22 +119,27 @@ const Cart = ({ cartItems, setCartItems }) => {
                   </div>
                 </div>
 
-                <div className="md:col-span-2 flex md:justify-start justify-between md:mt-0 mt-4">
-                  <div className="flex items-center border rounded px-2 py-1 shadow-sm bg-white">
-                    <button className="p-1 hover:text-red-600 transition">
-                      <Minus size={16} />
-                    </button>
-                    <span className="mx-2 font-semibold text-gray-800">
-                      {item.quantity || 1}
-                    </span>
-                    <button className="p-1 hover:text-green-600 transition">
-                      <Plus size={16} />
-                    </button>
-                  </div>
+                <div className="flex items-center border rounded  py-1 shadow-sm bg-white">
+                  <button
+                    className="p-1 hover:text-red-600 transition"
+                    onClick={() => handleDecrement(item.id)}
+                    disabled={item.quantity <= 1}
+                  >
+                    <Minus size={16} />
+                  </button>
+                  <span className="font-semibold text-gray-800">
+                    {item.quantity}
+                  </span>
+                  <button
+                    className="p-1 hover:text-green-600 transition"
+                    onClick={() => handleIncrement(item.id)}
+                  >
+                    <Plus size={16} />
+                  </button>
                 </div>
 
                 <div className="md:col-span-2 text-green-700 font-semibold md:mt-0 mt-2">
-                  ₹ {item.price}
+                  ₹ {item.price * item.quantity}
                 </div>
 
                 <div className="md:col-span-1 md:mt-0 mt-2">
@@ -153,12 +172,25 @@ const Cart = ({ cartItems, setCartItems }) => {
                 </span>
               </span>
             </div>
-            <button className="mt-6 w-full bg-gradient-to-r from-yellow-700 to-yellow-500 text-white py-2 rounded-xl hover:shadow-md transition font-semibold">
+            <button
+              className="mt-6 w-full bg-gradient-to-r from-yellow-700 to-yellow-500 text-white py-2 rounded-xl hover:shadow-md transition font-semibold"
+              onClick={() => setCheckoutModal(true)}
+            >
               Proceed to Checkout
             </button>
           </div>
         </div>
       </div>
+
+      <CheckoutModal
+        setCartItems={setCartItems}
+        loggedInUser={loggedInUser}
+        cartItems={cartData}
+        total={total}
+        gst={gst}
+        isOpen={checkoutModal}
+        onClose={() => setCheckoutModal(false)}
+      />
     </>
   );
 };

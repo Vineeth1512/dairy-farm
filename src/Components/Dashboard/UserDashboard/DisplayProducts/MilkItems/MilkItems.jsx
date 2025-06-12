@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../../Config/FirebaseConfiguration";
 import { toast, ToastContainer } from "react-toastify";
-export const MilkItems = ({ milkItems, SetWishListCount }) => {
+export const MilkItems = ({ milkItems, setwishListCount }) => {
   const categories = ["All", "Curd", "Paneer", "Butter", "Ghee", "Cream"];
   const [selectedCategory, setSelectedCategory] = useState("All");
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ export const MilkItems = ({ milkItems, SetWishListCount }) => {
       // Re-fetch and update wishlist count
       const updatedDoc = await getDoc(userRef);
       const updatedList = updatedDoc.data().wishList || [];
-      SetWishListCount(updatedList.length);
+      setwishListCount(updatedList.length);
 
       toast.success("Cattle Item Added to the WishList..");
     }
