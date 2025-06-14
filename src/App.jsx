@@ -24,6 +24,7 @@ import Cart from "./Components/Dashboard/UserDashboard/Cart/Cart";
 import SingleMilk from "./Components/Dashboard/UserDashboard/DisplayProducts/Milk/SingleMilk";
 import SingleProduct from "./Components/Dashboard/UserDashboard/DisplayProducts/MilkItems/SingleProduct";
 import Orders from "./Components/Dashboard/UserDashboard/Orders/Orders";
+import Footer from "./Components/Footer/Footer";
 
 const App = () => {
   const [cattle, setCattle] = useState([]);
@@ -165,6 +166,8 @@ const App = () => {
         />
         <Route path="/orders" element={<Orders />} />
       </Routes>
+
+      <Footer />
     </>
   );
 };

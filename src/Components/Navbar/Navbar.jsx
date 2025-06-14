@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../../assets/images/DairyLogo.png";
+import logo from "../../assets/images/logo.png";
 import profilePic from "../../assets/images/profilePic.webp";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
@@ -79,7 +79,11 @@ const Navbar = ({
 
               {/* Logo */}
               <Link to="/" className="flex items-center gap-2">
-                <img src={logo} alt="Dairy Logo" className="h-10" />
+                <img
+                  src={logo}
+                  alt="Dairy Logo"
+                  className=" hidden  md:block h-16"
+                />
                 <span className="text-xl font-bold text-[#fff]">
                   Dairy Farm
                 </span>
@@ -87,27 +91,27 @@ const Navbar = ({
 
               {/* Navigation Links (Desktop only) */}
               <div className="hidden md:flex gap-10 text-[#fff] font-medium ml-4">
-                <Link to="/" className="hover:text-green-600 ">
+                <Link to="/" className="hover:text-[#9e673d] ">
                   Home
                 </Link>
-                <Link to="/cattle" className="hover:text-green-600">
+                <Link to="/cattle" className="hover:text-[#9e673d]">
                   Cattle
                 </Link>
-                <Link to="/milk" className="hover:text-green-600">
+                <Link to="/milk" className="hover:text-[#9e673d]">
                   Milk
                 </Link>
-                <Link to="/products" className="hover:text-green-600">
+                <Link to="/products" className="hover:text-[#9e673d]">
                   Products
                 </Link>
-                {(loggedInOwner && (
-                  <Link to={`/userDashboard`} className="hover:text-green-600">
+                {(userLoggedIn && (
+                  <Link to={`/userDashboard`} className="hover:text-[#9e673d]">
                     Dashboard
                   </Link>
                 )) ||
                   (loggedInOwner && (
                     <Link
                       to={`/ownerDashboard`}
-                      className="hover:text-green-600"
+                      className="hover:text-[#9e673d]"
                     >
                       Dashboard
                     </Link>
@@ -126,14 +130,6 @@ const Navbar = ({
 
             {loggedInOwner ? (
               <>
-                <span className="hidden md:block font-semibold">
-                  Hello,{" "}
-                  {loggedInOwner?.name ||
-                    loggedInOwner?.user.displayName ||
-                    loginData?.name ||
-                    "User"}
-                  !
-                </span>
                 <div className="hidden md:block  dropdown dropdown-end ">
                   <div
                     tabIndex={0}
@@ -149,13 +145,23 @@ const Navbar = ({
                   </div>
                   <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52 bg-[#9c8f86]">
                     <li>
+                      <button>
+                        {loggedInOwner?.name ||
+                          loggedInOwner?.user.displayName ||
+                          loginData?.name}
+                        !
+                      </button>
+                    </li>
+                    <li>
                       <button onClick={() => setEditProfileModal(true)}>
                         Profile
                       </button>
                     </li>
-                    <li>
-                      <Link to={"/orders"}>Orders</Link>
-                    </li>
+                    {userLoggedIn && (
+                      <li>
+                        <Link to={"/orders"}>Orders</Link>
+                      </li>
+                    )}
                     <li>
                       <button onClick={() => setShowModal(true)}>Logout</button>
                     </li>
@@ -172,7 +178,7 @@ const Navbar = ({
 
             {/* Right: Login, Cart, Avatar */}
             {userLoggedIn && (
-              <div className="hidden md:flex items-center gap-4">
+              <div className=" md:flex items-center gap-4">
                 <div className="dropdown dropdown-end">
                   <div
                     tabIndex={0}
@@ -248,27 +254,27 @@ const Navbar = ({
 
             {/* Links */}
             <li>
-              <Link to="/" className="hover:text-green-600">
+              <Link to="/" className="hover:text-[#9e673d]">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/cattle" className="hover:text-green-600">
+              <Link to="/cattle" className="hover:text-[#9e673d]">
                 Cattle
               </Link>
             </li>
             <li>
-              <Link to="/milk" className="hover:text-green-600">
+              <Link to="/milk" className="hover:text-[#9e673d]">
                 Milk
               </Link>
             </li>
             <li>
-              <Link to="/products" className="hover:text-green-600">
+              <Link to="/products" className="hover:text-[#9e673d]">
                 Products
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="hover:text-green-600">
+              <Link to="/contact" className="hover:text-[#9e673d]">
                 Dashboard
               </Link>
             </li>
@@ -291,24 +297,17 @@ const Navbar = ({
             <li>
               <button onClick={() => setEditProfileModal(true)}>Profile</button>
             </li>
+
+            {userLoggedIn && (
+              <li>
+                <Link to={"/orders"}>Orders</Link>
+              </li>
+            )}
             <li>
               <button onClick={() => setShowModal(true)}>Logout</button>
             </li>
 
-            <li>
-              <Link to={"/orders"}>Orders</Link>
-            </li>
-
             <div className="divider"></div>
-
-            {/* Cart Section */}
-            <div className="bg-white shadow p-3 rounded-lg">
-              <div className="font-bold mb-1">Cart</div>
-              <div className="text-sm mb-2">8 items - $999</div>
-              <button className="btn btn-sm btn-primary w-full">
-                View Cart
-              </button>
-            </div>
           </ul>
         </div>
       </div>

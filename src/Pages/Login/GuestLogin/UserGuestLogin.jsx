@@ -6,9 +6,9 @@ import { setDoc, doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { useProfile } from "../../../Components/hooks/useProfile";
 
-const UserGuestLogin = ({ fetchWishListCount }) => {
-    const { fetchLoginData } = useProfile();
-  
+const UserGuestLogin = ({ fetchWishListCount, className }) => {
+  const { fetchLoginData } = useProfile();
+
   const navigate = useNavigate();
   const handelGuestLogin = async (e) => {
     e.preventDefault();
@@ -44,7 +44,7 @@ const UserGuestLogin = ({ fetchWishListCount }) => {
       );
       toast.success("Guest User Logged In Successfully...");
       await fetchWishListCount();
-      await fetchLoginData()
+      await fetchLoginData();
       setTimeout(() => {
         navigate("/userDashboard");
       }, 1500);
@@ -58,7 +58,7 @@ const UserGuestLogin = ({ fetchWishListCount }) => {
     <>
       <button
         type="submit"
-        className="btn bg-[#6e4327] text-[#fff] w-full my-2"
+        className={`btn bg-[radial-gradient(circle,#f7a974,#9e673d)] text-[#000] w-full my-2 ${className}`}
         onClick={handelGuestLogin}
       >
         Guest Login as User

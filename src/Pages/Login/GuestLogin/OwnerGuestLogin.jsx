@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-const OwnerGuestLogin = () => {
+const OwnerGuestLogin = ({ className }) => {
   const navigate = useNavigate();
   const handelGuestLogin = async (e) => {
     e.preventDefault();
@@ -54,7 +54,7 @@ const OwnerGuestLogin = () => {
     <>
       <button
         type="submit"
-        className="btn bg-[#6e4327] text-[#fff] w-full my-2"
+        className={`btn bg-[radial-gradient(circle,#f7a974,#9e673d)] text-[#000] w-full my-2 ${className}`}
         onClick={handelGuestLogin}
       >
         Guest Login as Owner
