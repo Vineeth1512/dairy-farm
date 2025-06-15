@@ -77,8 +77,8 @@ const AddMilk = () => {
     }
   };
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-gradient-to-br from-blue-100 via-white to-green-100 rounded-2xl shadow-xl mt-10">
-      <h2 className="text-3xl font-bold text-center mb-8 text-green-700">
+    <div className="max-w-4xl mx-auto p-8 bg-gradient-to-br from-[#f8c8a8] via-white to-[#ea9f65] rounded-2xl shadow-xl mt-10">
+      <h2 className="text-3xl font-bold text-center mb-8 text-[#9e673d]">
         🐄 Add Milk
       </h2>
       <form onSubmit={handleMilkFormSubmit}>
@@ -89,7 +89,7 @@ const AddMilk = () => {
               type="text"
               name="name"
               placeholder="Cow Milk or Buffalo Milk"
-              className="input input-bordered border-green-400 w-full bg-white"
+              className="input input-bordered border-[#9e673d] w-full bg-white"
               required
               onChange={(e) =>
                 setMilkDetails({ ...milkDetails, name: e.target.value })
@@ -103,7 +103,7 @@ const AddMilk = () => {
               type="text"
               name="quantity"
               placeholder="500ml or 1L.."
-              className="input input-bordered border-green-400 w-full bg-white"
+              className="input input-bordered border-[#9e673d] w-full bg-white"
               required
               onChange={(e) =>
                 setMilkDetails({ ...milkDetails, quantity: e.target.value })
@@ -116,7 +116,7 @@ const AddMilk = () => {
               type="number"
               name="fat"
               placeholder="e.g 4.5% "
-              className="input input-bordered border-green-400 w-full bg-white"
+              className="input input-bordered border-[#9e673d] w-full bg-white"
               required
               onChange={(e) =>
                 setMilkDetails({ ...milkDetails, fat: e.target.value })
@@ -129,7 +129,7 @@ const AddMilk = () => {
             <input
               type="number"
               name="price"
-              className="input input-bordered border-green-400 bg-white"
+              className="input input-bordered border-[#9e673d] bg-white"
               required
               onChange={(e) =>
                 setMilkDetails({ ...milkDetails, price: e.target.value })
@@ -143,7 +143,7 @@ const AddMilk = () => {
               type="text"
               name="description"
               placeholder="Enter Description"
-              className="input input-bordered border-green-400 w-full bg-white"
+              className="input input-bordered border-[#9e673d] w-full bg-white"
               required
               onChange={(e) =>
                 setMilkDetails({ ...milkDetails, description: e.target.value })
@@ -157,7 +157,7 @@ const AddMilk = () => {
               type="file"
               name="image"
               accept="image/*"
-              className="file-input file-input-bordered file-input-success w-full bg-white"
+              className="file-input file-input-bordered border-[#9e673d] w-full bg-white"
               onChange={handleImageChange}
             />
 
@@ -177,7 +177,7 @@ const AddMilk = () => {
         <div className="form-control mt-8">
           <button
             type="submit"
-            className="btn btn-success w-full text-lg tracking-wide"
+            className="btn bg-[radial-gradient(circle,#f7a974,#9e673d)] w-full text-lg tracking-wide"
           >
             ➕ Add Milk
           </button>

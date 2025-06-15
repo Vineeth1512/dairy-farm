@@ -6,7 +6,6 @@ import { toast, ToastContainer } from "react-toastify";
 const AllAnimals = () => {
   const [allAnimals, setAllAnimals] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const loggedInOwner = JSON.parse(localStorage.getItem("ownerLoggedIn"));
 
   useEffect(() => {
@@ -22,20 +21,14 @@ const AllAnimals = () => {
     fetchAllAnimals();
   }, []);
 
-  const handleDeleteAnimal = async (animalIndex) => {
-    console.log(animalIndex);
-
-    let animalsAfterDeletedAnimals = allAnimals.filter(
-      (filAnimal, index) => index !== animalIndex
-    );
-    console.log(animalsAfterDeletedAnimals);
+  const handleDeleteAnimal = async (index) => {
+    const updated = allAnimals.filter((_, i) => i !== index);
     const docRef = doc(db, "owners", loggedInOwner.user.displayName);
-    await updateDoc(docRef, {
-      animals: animalsAfterDeletedAnimals,
-    });
-    toast.success("Animal Deleted Successfully..");
-    setAllAnimals(animalsAfterDeletedAnimals);
+    await updateDoc(docRef, { animals: updated });
+    toast.success("Animal Deleted Successfully.");
+    setAllAnimals(updated);
   };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[50vh]">
@@ -53,57 +46,44 @@ const AllAnimals = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-extrabold text-green-700 mb-8 text-center">
+    <div className="container mx-auto px-4 py-6">
+      <h1 className="text-2xl font-bold text-[#9e673d] mb-6 text-center">
         Your Animals
       </h1>
 
-      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {allAnimals.map((animal, index) => (
           <div
             key={index}
-            className="card bg-white shadow-lg rounded-xl overflow-hidden border border-green-300 hover:shadow-2xl transition-shadow duration-300"
+            className="bg-white shadow-md rounded-lg border border-gray-200 overflow-hidden"
           >
-            <figure className="h-48 overflow-hidden">
-              <img
-                src={animal.image}
-                alt={animal.breed}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              />
-            </figure>
-            <div className="p-6">
-              <h2 className="card-title text-xl font-bold text-green-800 mb-2">
+            <img
+              src={animal.image}
+              alt={animal.breed}
+              className="w-full h-40  object-center"
+            />
+
+            <div className="p-4 text-sm text-gray-700 space-y-1">
+              <h2 className="text-lg font-bold text-[#9e673d]">
                 {animal.breed}
               </h2>
-              <p className="text-gray-700 mb-1">
+              <p>
                 <span className="font-semibold">Type:</span> {animal.type}
               </p>
-              <p className="text-gray-700 mb-1">
-                <span className="font-semibold">Quantity:</span> {animal.quantity}
-              </p>
-              <p className="text-gray-700 mb-1">
-                <span className="font-semibold">Age:</span> {animal.age}
-              </p>
-              <p className="text-gray-700 mb-1">
-                <span className="font-semibold">Color:</span>{" "}
-                {animal.color || "N/A"}
-              </p>
-              <p className="text-gray-700 mb-1">
-                <span className="font-semibold">Births:</span> {animal.birth}
-              </p>
-              <p className="text-gray-700 mb-1">
-                <span className="font-semibold">Milk Capacity:</span>{" "}
+              <p>
+                <span className="font-semibold">Milk:</span>{" "}
                 {animal.milkCapacity} L/day
               </p>
-              <p className="text-gray-700 mb-4">
+              <p>
                 <span className="font-semibold">Price:</span> ₹{animal.price}
               </p>
-              <div className="flex justify-between">
-                <button className="btn btn-sm btn-info text-white hover:btn-primary transition">
+
+              <div className="flex justify-between mt-3">
+                <button className="btn btn-xs bg-[#9e673d] text-white">
                   Edit
                 </button>
                 <button
-                  className="btn btn-sm btn-error text-white hover:btn-secondary transition"
+                  className="btn btn-xs bg-red-500 text-white"
                   onClick={() => handleDeleteAnimal(index)}
                 >
                   Delete
@@ -113,6 +93,7 @@ const AllAnimals = () => {
           </div>
         ))}
       </div>
+
       <ToastContainer />
     </div>
   );

@@ -63,13 +63,6 @@ const AddAnimal = () => {
     console.log(animalFormData);
 
     try {
-      // const imageURL = await uploadImageToCloudinary(animalFormData.image);
-
-      // const animalDataWithURL = {
-      //   ...animalFormData,
-      //   image: imageURL,
-      //   id:Date.now()
-      // };
       const animatDocRef = doc(db, "owners", loggedInOwner.user.displayName);
 
       await updateDoc(animatDocRef, {
@@ -85,9 +78,9 @@ const AddAnimal = () => {
     }
   };
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-gradient-to-br from-blue-100 via-white to-green-100 rounded-2xl shadow-xl mt-10">
-      <h2 className="text-3xl font-bold text-center mb-8 text-green-700">
-        🐄 Add Cow / Buffalo
+    <div className="max-w-4xl mx-auto p-8 bg-gradient-to-br from-[#f8c8a8] via-white to-[#ea9f65] rounded-2xl shadow-xl mt-10">
+      <h2 className="text-3xl font-bold text-center mb-8 text-[#9e673d]">
+        🐄 Add Animal
       </h2>
       <form onSubmit={handleAnimalFormSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -97,7 +90,7 @@ const AddAnimal = () => {
               type="text"
               name="breed"
               placeholder="e.g., Gir, Jersey"
-              className="input input-bordered border-green-400 w-full bg-white"
+              className="input input-bordered border-[#9e673d] w-full bg-white"
               required
               onChange={(e) =>
                 setAnimalFormData({ ...animalFormData, breed: e.target.value })
@@ -112,7 +105,7 @@ const AddAnimal = () => {
             </label>
             <select
               name="type"
-              className="select select-bordered  border-green-400 bg-white"
+              className="select select-bordered  border-[#9e673d] bg-white"
               onChange={(e) =>
                 setAnimalFormData({ ...animalFormData, type: e.target.value })
               }
@@ -129,7 +122,7 @@ const AddAnimal = () => {
               type="text"
               name="age"
               placeholder="e.g., 2 years or 6 months"
-              className="input input-bordered border-green-400 w-full bg-white"
+              className="input input-bordered border-[#9e673d] w-full bg-white"
               required
               onChange={(e) =>
                 setAnimalFormData({ ...animalFormData, age: e.target.value })
@@ -145,7 +138,7 @@ const AddAnimal = () => {
               type="text"
               name="color"
               placeholder="e.g., Brown, Black & White"
-              className="input input-bordered border-green-400 w-full bg-white"
+              className="input input-bordered border-[#9e673d] w-full bg-white"
               onChange={(e) =>
                 setAnimalFormData({ ...animalFormData, color: e.target.value })
               }
@@ -160,7 +153,7 @@ const AddAnimal = () => {
               type="number"
               name="milkCapacity"
               placeholder="e.g., 10"
-              className="input input-bordered border-green-400 w-full bg-white"
+              className="input input-bordered border-[#9e673d] w-full bg-white"
               required
               onChange={(e) =>
                 setAnimalFormData({
@@ -180,7 +173,7 @@ const AddAnimal = () => {
               type="text"
               name="birth"
               placeholder="0 , 1 , 2 "
-              className="input input-bordered border-green-400 w-full bg-white"
+              className="input input-bordered border-[#9e673d] w-full bg-white"
               required
               onChange={(e) =>
                 setAnimalFormData({ ...animalFormData, birth: e.target.value })
@@ -193,7 +186,7 @@ const AddAnimal = () => {
             <input
               type="number"
               name="price"
-              className="input input-bordered border-green-400 bg-white"
+              className="input input-bordered border-[#9e673d] bg-white"
               required
               onChange={(e) =>
                 setAnimalFormData({ ...animalFormData, price: e.target.value })
@@ -207,7 +200,7 @@ const AddAnimal = () => {
               type="file"
               name="image"
               accept="image/*"
-              className="file-input file-input-bordered file-input-success w-full bg-white"
+              className="file-input file-input-bordered border-[#9e673d] w-full bg-white"
               onChange={handleImageChange}
             />
 
@@ -227,7 +220,7 @@ const AddAnimal = () => {
         <div className="form-control mt-8">
           <button
             type="submit"
-            className="btn btn-success w-full text-lg tracking-wide"
+            className="btn  bg-[radial-gradient(circle,#f7a974,#9e673d)] w-full text-lg tracking-wide"
           >
             ➕ Add Animal
           </button>
