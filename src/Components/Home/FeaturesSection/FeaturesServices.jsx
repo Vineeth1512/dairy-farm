@@ -29,6 +29,11 @@ const services = [
     icon: <FaHandsWash className="text-4xl text-pink-500" />,
     desc: "Follow clean and healthy animal care routines.",
   },
+  {
+    title: "Product Sales",
+    icon: <FaBoxOpen className="text-4xl text-yellow-500" />,
+    desc: "Sell dairy products like ghee, butter, and cheese.",
+  },
 ];
 
 const Features = () => {

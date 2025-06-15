@@ -26,18 +26,17 @@ const ServicesSection = () => {
   return (
     <div className="py-16 px-4 md:px-12 lg:px-24 bg-white text-center">
       {/* Header */}
-      <p className="text-green-600 text-sm tracking-widest font-semibold mb-2">
-        ━━ OUR SERVICES ━━
+      <p className="text-xs tracking-widest text-gray-500 uppercase mb-2">
+        Our Services
       </p>
-      <h2 className="text-3xl md:text-4xl font-bold text-[#3c2a1e] leading-snug">
-        Services That We Offer <br />
-        <span>For Entrepreneurs</span>
+      <h2 className="text-3xl md:text-4xl font-serif text-[#9e673d] mb-10">
+        Services That We Offer
       </h2>
 
       {/* Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-20">
         {services.map((service, index) => (
-          <div key={index} className="relative group">
+          <div key={index} className="relative group pb-8">
             {/* Circle Image positioned outside the card */}
             <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 z-20">
               <div className="w-24 h-24 rounded-full border-8 border-[#f7a974] shadow-md overflow-hidden">

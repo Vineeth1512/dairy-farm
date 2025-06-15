@@ -219,12 +219,14 @@ const Navbar = ({
                     role="button"
                     className="btn btn-ghost btn-circle"
                   >
-                    <div className="indicator">
-                      <AiOutlineHeart className="h-6 w-6 text-white" />
-                      <span className="badge badge-sm indicator-item">
-                        {wishListCount}
-                      </span>
-                    </div>
+                    <Link to={"/wishList"}>
+                      <div className="indicator">
+                        <AiOutlineHeart className="h-6 w-6 text-white" />
+                        <span className="badge badge-sm indicator-item">
+                          {wishListCount}
+                        </span>
+                      </div>
+                    </Link>
                   </div>
                 </div>
               </div>

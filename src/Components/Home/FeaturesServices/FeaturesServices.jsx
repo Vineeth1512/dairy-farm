@@ -43,6 +43,14 @@ const services = [
     desc: "Follow clean and healthy animal care routines.",
     color: "bg-pink-50",
   },
+  {
+    title: "Cow Collection",
+    icon: (
+      <GiMilkCarton className="text-5xl text-orange-300 group-hover:scale-110 transition-transform" />
+    ),
+    desc: "Record morning and evening milk collection.",
+    color: "bg-orange-50",
+  },
 ];
 
 const FeaturesService = () => {

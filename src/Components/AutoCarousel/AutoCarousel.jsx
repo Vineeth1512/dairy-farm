@@ -62,7 +62,9 @@ export default function AutoCarousel() {
             {/* Overlay */}
             <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-center px-6">
               <div className="text-white">
-                <h1 className="text-4xl md:text-5xl font-bold">{slide.quote}</h1>
+                <h1 className="text-4xl md:text-5xl font-bold">
+                  {slide.quote}
+                </h1>
                 <p className="mt-4 text-lg md:text-2xl">{slide.subtext}</p>
               </div>
             </div>
@@ -71,14 +73,18 @@ export default function AutoCarousel() {
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
               <button
                 onClick={() =>
-                  setActiveIndex((activeIndex - 1 + slides.length) % slides.length)
+                  setActiveIndex(
+                    (activeIndex - 1 + slides.length) % slides.length
+                  )
                 }
                 className="btn btn-circle bg-white text-black hover:bg-gray-300"
               >
                 ❮
               </button>
               <button
-                onClick={() => setActiveIndex((activeIndex + 1) % slides.length)}
+                onClick={() =>
+                  setActiveIndex((activeIndex + 1) % slides.length)
+                }
                 className="btn btn-circle bg-white text-black hover:bg-gray-300"
               >
                 ❯
@@ -89,13 +95,13 @@ export default function AutoCarousel() {
       </div>
 
       {/* Dots/Indicators */}
-      <div className="flex justify-center mt-4 gap-2">
+      <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex gap-2">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setActiveIndex(index)}
             className={`w-3 h-3 rounded-full ${
-              index === activeIndex ? "bg-blue-500" : "bg-gray-300"
+              index === activeIndex ? "bg-[#784b28]" : "bg-[#f9d7c0]"
             }`}
           ></button>
         ))}
