@@ -79,11 +79,11 @@ const AllAnimals = () => {
               </p>
 
               <div className="flex justify-between mt-3">
-                <button className="btn btn-xs bg-[#9e673d] text-white">
+                <button className="px-4 py-2 rounded-lg text-white bg-gradient-to-r from-[#f7a974] to-[#9e673d] hover:brightness-110 transition">
                   Edit
                 </button>
                 <button
-                  className="btn btn-xs bg-red-500 text-white"
+                  className="px-4 py-2 rounded-lg text-white bg-red-500 hover:bg-red-600 transition"
                   onClick={() => handleDeleteAnimal(index)}
                 >
                   Delete
