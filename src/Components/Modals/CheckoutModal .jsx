@@ -205,6 +205,7 @@ import { useNavigate } from "react-router-dom";
 import QRCode from "react-qr-code";
 import { db } from "../../Config/FirebaseConfiguration";
 import { toast } from "react-toastify";
+import { sendOrderConfirmationEmail } from "../../Services/EmailService";
 import { motion, AnimatePresence } from "framer-motion";
 
 const CheckoutModal = ({
@@ -250,7 +251,11 @@ const CheckoutModal = ({
         address: address,
         timestamp: new Date().toISOString(),
         paymentMethod,
+        total,
+        gst,
       };
+
+      await sendOrderConfirmationEmail(loggedInUser, newOrder);
 
       await updateDoc(docRef, {
         orders: arrayUnion(newOrder),
@@ -259,7 +264,7 @@ const CheckoutModal = ({
 
       setCartItems([]);
       setOrderPlaced(true);
-      alert("Order placed successfully!");
+      alert("Order placed and confirmation email sent.");
       onClose();
       navigate("/");
     } catch (error) {

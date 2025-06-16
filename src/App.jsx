@@ -35,6 +35,8 @@ const App = () => {
   const [wishListCount, setwishListCount] = useState(0);
   const [cartCount, setCartCount] = useState([]);
 
+  const [wishList, setWishList] = useState([]);
+
   const fetchWishListCount = async () => {
     const loggedInUser = JSON.parse(localStorage.getItem("userLoggedIn"));
 
@@ -49,6 +51,7 @@ const App = () => {
       const data = userSnap.data();
       setwishListCount(data?.wishList?.length || 0);
       setCartCount(data?.cart || []);
+      setWishList(data?.wishList || []);
     } catch (err) {
       toast.error(err.message);
       console.log(err);
@@ -166,7 +169,16 @@ const App = () => {
           }
         />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/wishList" element={<WishList />} />
+        <Route
+          path="/wishList"
+          element={
+            <WishList
+              wishList={wishList}
+              setWishList={setWishList}
+              setwishListCount={setwishListCount}
+            />
+          }
+        />
       </Routes>
 
       <Footer />
