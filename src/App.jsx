@@ -176,6 +176,7 @@ const App = () => {
               wishList={wishList}
               setWishList={setWishList}
               setwishListCount={setwishListCount}
+              setCartCount={setCartCount}
             />
           }
         />
