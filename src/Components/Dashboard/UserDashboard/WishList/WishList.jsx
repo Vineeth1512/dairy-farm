@@ -97,6 +97,7 @@ export const WishList = ({
               <th className="py-4 px-6 font-semibold">Images</th>
               <th className="py-4 px-6 font-semibold">Product</th>
               <th className="py-4 px-6 font-semibold">Price</th>
+              <th className="py-4 px-6 font-semibold">Quantity</th>
               <th className="py-4 px-6 font-semibold">Add to cart</th>
               <th className="py-4 px-6 font-semibold">Remove</th>
             </tr>
@@ -116,6 +117,7 @@ export const WishList = ({
                 </td>
                 <td className="py-4 px-6">{item.name || item.breed}</td>
                 <td className="py-4 px-6">{item.price}</td>
+                <td className="py-4 px-6">{item.quantity}</td>
 
                 <td className="py-4 px-6">
                   <button
@@ -134,7 +136,7 @@ export const WishList = ({
           </tbody>
         </table>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 };

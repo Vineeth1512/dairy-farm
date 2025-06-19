@@ -1,9 +1,11 @@
 import emailjs from "emailjs-com";
 
 export const sendOrderConfirmationEmail = (userData, orderData) => {
+  console.log(userData);
+
   const templateParams = {
     user_name: userData.user.displayName,
-    user_email: userData.user.email,
+    user_email: userData.user.email || "guestuser@gmail.com",
     order_id: Date.now(),
     order_date: new Date().toLocaleString(),
     delivery_address: orderData.address,
