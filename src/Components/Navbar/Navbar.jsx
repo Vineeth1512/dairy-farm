@@ -128,54 +128,6 @@ const Navbar = ({
               />
             </div>
 
-            {loggedInOwner ? (
-              <>
-                <div className="hidden md:block  dropdown dropdown-end ">
-                  <div
-                    tabIndex={0}
-                    role="button"
-                    className="btn btn-ghost btn-circle avatar"
-                  >
-                    <div className="w-10 rounded-full">
-                      <img
-                        src={loginData?.profile || profilePic}
-                        alt="Profile"
-                      />
-                    </div>
-                  </div>
-                  <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52 bg-[#9c8f86]">
-                    <li>
-                      <button>
-                        {loggedInOwner?.name ||
-                          loggedInOwner?.user.displayName ||
-                          loginData?.name}
-                        !
-                      </button>
-                    </li>
-                    <li>
-                      <button onClick={() => setEditProfileModal(true)}>
-                        Profile
-                      </button>
-                    </li>
-                    {userLoggedIn && (
-                      <li>
-                        <Link to={"/orders"}>Orders</Link>
-                      </li>
-                    )}
-                    <li>
-                      <button onClick={() => setShowModal(true)}>Logout</button>
-                    </li>
-                  </ul>
-                </div>
-              </>
-            ) : (
-              <>
-                <Link to="/login" className="btn btn-ghost font-semibold">
-                  Login
-                </Link>
-              </>
-            )}
-
             {/* Right: Login, Cart, Avatar */}
             {userLoggedIn && (
               <div className=" md:flex items-center gap-4">
@@ -230,6 +182,54 @@ const Navbar = ({
                   </div>
                 </div>
               </div>
+            )}
+
+            {loggedInOwner ? (
+              <>
+                <div className="hidden md:block  dropdown dropdown-end ">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle avatar"
+                  >
+                    <div className="w-10 rounded-full">
+                      <img
+                        src={loginData?.profile || profilePic}
+                        alt="Profile"
+                      />
+                    </div>
+                  </div>
+                  <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52 bg-[#9c8f86]">
+                    <li>
+                      <button>
+                        {loggedInOwner?.name ||
+                          loggedInOwner?.user.displayName ||
+                          loginData?.name}
+                        !
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => setEditProfileModal(true)}>
+                        Profile
+                      </button>
+                    </li>
+                    {userLoggedIn && (
+                      <li>
+                        <Link to={"/orders"}>Orders</Link>
+                      </li>
+                    )}
+                    <li>
+                      <button onClick={() => setShowModal(true)}>Logout</button>
+                    </li>
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="btn btn-ghost font-semibold">
+                  Login
+                </Link>
+              </>
             )}
           </nav>
         </div>
