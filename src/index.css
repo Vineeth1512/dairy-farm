@@ -3,6 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
 .custom-range::-webkit-slider-thumb {
   background-color: #6e4327;
   border: none;

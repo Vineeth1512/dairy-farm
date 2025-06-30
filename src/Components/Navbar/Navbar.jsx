@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import Logout from "../Logout/Logout";
 import { AiOutlineHeart } from "react-icons/ai";
 import EditProfile from "../Modals/EditProfile";
-import { useProfile } from "../hooks/useProfile";
+import { useProfile } from "../../hooks/useProfile";
 import { auth } from "../../Config/FirebaseConfiguration";
 
 const Navbar = ({

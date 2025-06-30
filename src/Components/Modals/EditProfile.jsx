@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { uploadImageToCloudinary } from "../../utils/uploadImageToCloudinary";
-import { doc, setDoc  } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../../Config/FirebaseConfiguration";
 import { toast, ToastContainer } from "react-toastify";
-import { useProfile } from "../hooks/useProfile";
+import { useProfile } from "../../hooks/useProfile";
 import { updateProfile } from "firebase/auth";
 
 const EditProfile = ({ userLoggedIn, editProfileModal, onCancel }) => {

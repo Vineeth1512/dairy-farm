@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { auth, db } from "../../Config/FirebaseConfiguration";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { useProfile } from "../../Components/hooks/useProfile";
+import { useProfile } from "../../hooks/useProfile";
 import OwnerGuestLogin from "./GuestLogin/OwnerGuestLogin";
 import UserGuestLogin from "./GuestLogin/UserGuestLogin";
 import CustomButton from "../../Components/CustomButton/CustomButton";

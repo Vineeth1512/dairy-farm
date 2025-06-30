@@ -4,7 +4,7 @@ import { auth, db } from "../../../Config/FirebaseConfiguration";
 import { toast, ToastContainer } from "react-toastify";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { useProfile } from "../../../Components/hooks/useProfile";
+import { useProfile } from "../../../hooks/useProfile";
 
 const UserGuestLogin = ({ fetchWishListCount, className }) => {
   const { fetchLoginData } = useProfile();
